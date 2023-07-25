@@ -13,8 +13,8 @@ void	show_env(void)
 
 void	show_env_export(void)
 {
-	uint8_t		i;
-	uint8_t		j;
+	int			i;
+	int			j;
 	char		**t;
 
 	t = *get_env();

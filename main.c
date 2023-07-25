@@ -21,6 +21,19 @@ int	main(int ac, char **av, char **env)
 		// Add to history
 		add_history(input);
 
+		
+		char s = '<';
+		/* get the first token */
+		char *token = ft_strtok(input, s);
+		
+		/* walk through other tokens */
+		while( token != NULL ) {
+			printf("[%s]\n", token );
+			
+			token = ft_strtok(NULL, s);
+		}
+
+
 
 		//linkedlist = parse_input(input);
 	}

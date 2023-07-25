@@ -34,6 +34,9 @@ void    remove_from_env(char *str);
 void	find_and_remove(char *str);
 
 // Tools
+char	*ft_strtok(char *str, char sepa);
+
+
 bool	ft_isdigit(int c);
 bool	ft_isalpha(int c);
 char	*ft_strdup(char *src);

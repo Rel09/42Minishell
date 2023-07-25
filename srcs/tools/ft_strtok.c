@@ -1,29 +1,29 @@
 #include "../../minishell.h"
 
-char	*ft_strtok(char *str, char sepa)
+char	*ft_strtok(char *str, const char delim)
 {
-	static char	*stock = NULL;
-	char		*ptr;
-	int		i;
+	static char		*stock = NULL;
+	char			*ptr;
+	int				flg;
 
-	i = 0;
+	flg = 0;
 	ptr = NULL;
 	if (str != NULL)
 		stock = ft_strdup(str);
 	while (*stock != '\0')
 	{
-		if (i == 0 && *stock != sepa)
+		if (flg == 0 && *stock != delim)
 		{
-			i = 1;
+			flg = 1;
 			ptr = stock;
 		}
-		else if (i == 1 && *stock == sepa)
+		else if (flg == 1 && *stock == delim)
 		{
-			*stock = '\0';
+			*stock = 0;
 			stock += 1;
 			break ;
 		}
-		stock++;
+		stock += 1;
 	}
 	return (ptr);
 }

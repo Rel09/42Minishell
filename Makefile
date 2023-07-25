@@ -11,6 +11,7 @@ FILES := main.c \
 		srcs/env/findandremove.c \
         srcs/parser/input.c \
 		srcs/tools/ft_bzero.c \
+		srcs/tools/ft_strtok.c \
 		srcs/tools/ft_strlen.c \
 		srcs/tools/ft_strdup.c \
 		srcs/tools/ft_strcmp.c \
