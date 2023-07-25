@@ -6,18 +6,25 @@ SPECIAL_FLAG = -lreadline
 
 # Source files
 FILES := main.c \
-        srcs/parser/input.c \
 		srcs/env/init.c \
+		srcs/env/show.c \
+		srcs/env/findandremove.c \
+        srcs/parser/input.c \
+		srcs/tools/ft_bzero.c \
 		srcs/tools/ft_strlen.c \
 		srcs/tools/ft_strdup.c \
 		srcs/tools/ft_strcmp.c \
+		srcs/tools/ft_isdigit.c \
+		srcs/tools/ft_isalpha.c \
 		srcs/tools/ft_strncmp.c \
+		srcs/tools/ft_strncat.c \
 		srcs/tools/ft_isin2darray.c \
 		srcs/tools/ft_sort2darray.c \
 		srcs/tools/ft_copy2darray.c \
 		srcs/tools/ft_count2darray.c \
 		srcs/tools/ft_insert2darray.c \
-		srcs/tools/ft_remove2darray.c
+		srcs/tools/ft_remove2darray.c \
+		srcs/tools/ft_iscorrectenvname.c
 
 # Object files
 OBJS_DIR := objs

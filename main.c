@@ -9,30 +9,19 @@ int	main(int ac, char **av, char **env)
 	init_env(env);
 	while (true)
 	{
+		
+		// Read Input
 		input = readline("Minishell > ");
 		if (!input)
 		{
 			printf("Readline Input Error\n");
 			exit(1);
 		}
+
+		// Add to history
 		add_history(input);
 
-		if (!ft_strcmp(input, "ADD")) {
-			add_to_env("VA CHIER GINETTE");
 
-			printf("Added\n");
-
-		}
-		else if (!ft_strcmp(input, "SHOW"))
-		{
-			char **TEMP = *get_env();
-			for (int i = 0; TEMP[i]; i++)
-				printf("%s\n", TEMP[i]);
-		}
-		else if (!ft_strcmp(input, "REMOVE"))
-		{
-			remove_from_env("VA CHIER");
-		}
 		//linkedlist = parse_input(input);
 	}
 

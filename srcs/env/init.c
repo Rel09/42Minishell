@@ -24,29 +24,30 @@ void    add_to_env(char *str)
     char    **e;
     char    **newenv;
 
-    // Remove it first if it exist
-    e = *get_env();
-    ft_insert2darray(&newenv, e, str);
-    ft_sort2darray(&newenv);
-    free_env();
-    *get_env() = newenv;
-}
-
-// Remove element from env
-void    remove_from_env(char *str)
-{
-    char    **e;
-    char    **newenv;
-    
-    e = *get_env();
-    if (!ft_isin2darray(e, str))
-        printf("[%s] Not in ENV\n", str);
-    else {
-        ft_remove2darray(&newenv, e, str);
+    if (ft_iscorrectenvname(str))
+    {
+        find_and_remove(str);
+        e = *get_env();
+        ft_insert2darray(&newenv, e, str);
         ft_sort2darray(&newenv);
         free_env();
         *get_env() = newenv;
     }
+    else
+        printf("Export -> Invalid ARG Identifier\n");
+}
+
+// Remove element from env, use find_and_remove(STR) to remove vars
+void    remove_from_env(char *str)
+{
+    char    **e;
+    char    **newenv;
+
+    e = *get_env();
+    ft_remove2darray(&newenv, e, str);
+    ft_sort2darray(&newenv);
+    free_env();
+    *get_env() = newenv;
 }
 
 // Free the env

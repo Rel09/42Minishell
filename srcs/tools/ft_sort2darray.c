@@ -16,7 +16,7 @@ void ft_sort2darray(char ***strings) {
     while (++i < num_strings - 1) {
         j = -1;
         while (++j < num_strings - i - 1) {
-            if (strcmp(strings_ptr[j], strings_ptr[j + 1]) > 0) {
+            if (ft_strcmp(strings_ptr[j], strings_ptr[j + 1]) > 0) {
                 temp = strings_ptr[j];
                 strings_ptr[j] = strings_ptr[j + 1];
                 strings_ptr[j + 1] = temp;
