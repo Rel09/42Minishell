@@ -1,29 +1,60 @@
 #include "../../minishell.h"
 
-char	*ft_strtok(char *str, const char delim)
-{
-	static char		*stock = NULL;
-	char			*ptr;
-	int				flg;
-
-	flg = 0;
-	ptr = NULL;
-	if (str != NULL)
-		stock = ft_strdup(str);
-	while (*stock != '\0')
+// Tell sstrktok to skip one or two char, depending on the delimiter
+// it also skip the second char, 
+// its not really needed since strtok will skip it but yea
+static void sstrtok_helper(char **stock) {
+    if (is_delimiter(*stock) == 4 || is_delimiter(*stock) == 5)
 	{
-		if (flg == 0 && *stock != delim)
+		(*stock)[0] = 0;
+		(*stock)[1] = 0;
+		*stock += 2;
+	}
+	else
+	{
+		(*stock)[0] = 0;
+		*stock += 1;
+	}
+}
+
+// Split the entire thing
+t_parser	*ft_sstrtok(char *str)
+{
+	static t_parser	output;
+	static char		*stock;
+	static char		*head;
+	bool			swltch;
+	uint8_t			quote;
+
+	swltch = false;
+	ft_bzero(&output, sizeof(output));
+	if (str)
+	{
+		stock = ft_strdup(str);
+		head = stock;
+		if (is_delimiter(stock))
+			set_flags(&output.flags, is_delimiter(stock), false);
+	}
+	while (*stock)
+	{
+		if (!swltch && !is_delimiter(stock))
 		{
-			flg = 1;
-			ptr = stock;
+			swltch = true;
+			output.str = stock;
 		}
-		else if (flg == 1 && *stock == delim)
+		else if (swltch && quote == 0 && is_delimiter(stock))
 		{
-			*stock = 0;
-			stock += 1;
+			set_flags(&output.flags, is_delimiter(stock), true);
+			sstrtok_helper(&stock);
 			break ;
 		}
-		stock += 1;
+		if (swltch && quote == 0 && is_quote(stock))
+			quote = is_quote(stock);
+		else if (swltch && quote != 0 && quote == is_quote(stock))
+			quote = 0;
+		stock++;
 	}
-	return (ptr);
+	if (!output.str && head)
+		free(head);
+	return (&output);
 }

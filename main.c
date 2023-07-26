@@ -17,20 +17,14 @@ int	main(int ac, char **av, char **env)
 			printf("Readline Input Error\n");
 			exit(1);
 		}
-
 		// Add to history
 		add_history(input);
 
-		
-		char s = '<';
-		/* get the first token */
-		char *token = ft_strtok(input, s);
-		
-		/* walk through other tokens */
-		while( token != NULL ) {
-			printf("[%s]\n", token );
-			
-			token = ft_strtok(NULL, s);
+		t_parser *token = ft_sstrtok(input);
+		while (token->str)
+		{
+			printf("-> [%s]\n", token->str);
+			token = ft_sstrtok(0);
 		}
 
 

@@ -10,7 +10,9 @@ FILES := main.c \
 		srcs/env/show.c \
 		srcs/env/findandremove.c \
         srcs/parser/input.c \
+		srcs/parser/flags.c \
 		srcs/tools/ft_bzero.c \
+		srcs/tools/ft_isquote.c \
 		srcs/tools/ft_strtok.c \
 		srcs/tools/ft_strlen.c \
 		srcs/tools/ft_strdup.c \
@@ -19,6 +21,7 @@ FILES := main.c \
 		srcs/tools/ft_isalpha.c \
 		srcs/tools/ft_strncmp.c \
 		srcs/tools/ft_strncat.c \
+		srcs/tools/ft_isdelimiter.c \
 		srcs/tools/ft_isin2darray.c \
 		srcs/tools/ft_sort2darray.c \
 		srcs/tools/ft_copy2darray.c \
