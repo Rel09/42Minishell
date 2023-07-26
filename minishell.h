@@ -13,19 +13,19 @@
 # include "./readline/history.h"//						History
 
 
-typedef struct
+typedef struct s_input
 {
-	int				index;
-	char			**args;
-	uint16_t		flags;
-	struct t_input	*next;
-}	t_input;
+    int				index;
+    char			*str;
+    uint16_t		flags;
+    struct s_input	*next;
+} t_input;
 
-typedef struct
+typedef struct s_parser
 {
-	char		*str;
-	uint16_t	flags;
-}	t_parser;
+    char *str;
+    uint16_t flags;
+} t_parser;
 
 enum e_flagstype
 {
