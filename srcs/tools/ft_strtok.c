@@ -4,17 +4,13 @@
 // it also skip the second char, 
 // its not really needed since strtok will skip it but yea
 static void sstrtok_helper(char **stock) {
+	uint8_t	size;
+
+	size = 1;
     if (is_delimiter(*stock) == 4 || is_delimiter(*stock) == 5)
-	{
-		(*stock)[0] = 0;
-		(*stock)[1] = 0;
-		*stock += 2;
-	}
-	else
-	{
-		(*stock)[0] = 0;
-		*stock += 1;
-	}
+		size = 2;
+	ft_bzero(*stock, size);
+	*stock += size;
 }
 
 // Split the entire thing
