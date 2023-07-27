@@ -17,10 +17,13 @@ FILES := main.c \
 		srcs/tools/ft_strlen.c \
 		srcs/tools/ft_strdup.c \
 		srcs/tools/ft_strcmp.c \
+		srcs/tools/ft_trimstr.c \
 		srcs/tools/ft_isdigit.c \
 		srcs/tools/ft_isalpha.c \
 		srcs/tools/ft_strncmp.c \
 		srcs/tools/ft_strncat.c \
+		srcs/tools/ft_isspace.c \
+		srcs/tools/ft_strncpy.c \
 		srcs/tools/ft_isdelimiter.c \
 		srcs/tools/ft_isin2darray.c \
 		srcs/tools/ft_sort2darray.c \
@@ -28,6 +31,7 @@ FILES := main.c \
 		srcs/tools/ft_count2darray.c \
 		srcs/tools/ft_insert2darray.c \
 		srcs/tools/ft_remove2darray.c \
+		srcs/tools/ft_freelinkedlist.c \
 		srcs/tools/ft_iscorrectenvname.c
 
 # Object files
@@ -53,6 +57,7 @@ $(OBJS_DIR):
 # Compile source files into object files
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 	@$(CC) $(FLAG) -c $< -o $@
+	@echo $(CYAN)[-] Compiling: $@$(ENDCOLOR)
 
 # Build the final executable
 $(NAME): $(OBJS)
@@ -73,7 +78,7 @@ leaks: $(NAME)
 	valgrind --track-fds=yes --trace-children=yes ./$(NAME)
 
 run: $(NAME)
-	./$(NAME)
+	@./$(NAME)
 
 #---------------------------       Phony        ---------------------------
 .PHONY: all clean fclean re leaks run

@@ -27,7 +27,7 @@ static enum e_flagstype	get_flags(uint8_t value, bool right)
 }
 
 // Add the flags to the current Flags pointer
-void	set_flags(uint16_t	*flags, uint8_t value, bool right)
+void	set_flags(uint16_t *flags, uint8_t value, bool right)
 {
 	*flags |= get_flags(value, right);
 }

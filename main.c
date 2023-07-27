@@ -5,8 +5,6 @@
 // Convert command to bitshift variables and remove?
 // Tweak STRTOK for less lines
 
-
-
 int	main(int ac, char **av, char **env)
 {
 	(void)ac;
@@ -15,15 +13,16 @@ int	main(int ac, char **av, char **env)
 	t_input	*linkedlist;
 
 	init_env(env);
+	printf(COLOR_BLUE"\nWelcome to Minishell\n\n"COLOR_RESET);
 	while (true)
 	{
 		
 		// Read Input
-		input = readline("Minishell > ");
+		input = readline(COLOR_MAGENTA"Minishell > "COLOR_RESET);
 		if (!input)
 		{
 			printf("Readline Input Error\n");
-			exit(1);
+			return (1);
 		}
 
 		// Add to history
@@ -32,13 +31,14 @@ int	main(int ac, char **av, char **env)
 		// Split everything
 		linkedlist = parse_input(input);
 
+		// Print everything
 		t_input	*temp = linkedlist;
 		while (temp)
 		{
-			printf("[%i] [%s]\n", temp->index, temp->str);
+			printf(COLOR_CYAN"[%i] [%s]\n"COLOR_RESET, temp->index, temp->str);
 			temp = temp->next;    
 		}
-
+		free_input(linkedlist);
 
 	}
 

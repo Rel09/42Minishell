@@ -1,5 +1,6 @@
 #include "../../minishell.h"
 
+// Backend for find_and_remove
 static void    remove_from_env(char *str)
 {
     char    **e;
@@ -19,8 +20,8 @@ void	find_and_remove(char *str)
 	int		i;
 	char	varname[200];
 
-	ft_bzero(varname, 200);
 	i = -1;
+	ft_bzero(varname, 200);
 	while (str[++i])
 	{
 		if (str[i] == '=')
@@ -30,4 +31,6 @@ void	find_and_remove(char *str)
 			return ;
 		}
 	}
+	printf("ERROR -> find_and_remove never found var with = in its name\n");
+	exit(1);
 }
