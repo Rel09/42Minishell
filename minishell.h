@@ -13,19 +13,19 @@
 # include "./readline/history.h"//						History
 
 
-typedef struct s_input
+typedef struct s_input// Final Input Conversion
 {
     int				index;
     char			*str;
     uint16_t		flags;
     struct s_input	*next;
-} t_input;
+}	t_input;
 
-typedef struct s_parser
+typedef struct s_parser// strtok Conversion
 {
-    char *str;
-    uint16_t flags;
-} t_parser;
+    char			*str;
+    uint16_t		flags;
+}	t_parser;
 
 enum e_flagstype
 {
@@ -45,15 +45,23 @@ enum e_flagstype
 t_input 	*parse_input(char *input);
 void		set_flags(uint16_t	*flags, uint8_t value, bool right);
 
-// Env
+
+// --- ENV ---
+
+//		Display Env
 void		show_env();
-void		free_env();
-char   		***get_env();
-void    	init_env(char **env);
 void		show_env_export(void);
+
+//		Env
+char   		***get_env();
+void		free_env();
+void    	init_env(char **env);
+
+//		Add / Remove from Env
 void    	add_to_env(char *str);
-void    	remove_from_env(char *str);
 void		find_and_remove(char *str);
+
+// -----------
 
 // Tools
 bool		ft_isdigit(int c);

@@ -37,19 +37,6 @@ void    add_to_env(char *str)
         printf("Export -> Invalid ARG Identifier\n");
 }
 
-// Remove element from env, use find_and_remove(STR) to remove vars
-void    remove_from_env(char *str)
-{
-    char    **e;
-    char    **newenv;
-
-    e = *get_env();
-    ft_remove2darray(&newenv, e, str);
-    ft_sort2darray(&newenv);
-    free_env();
-    *get_env() = newenv;
-}
-
 // Free the env
 void    free_env()
 {

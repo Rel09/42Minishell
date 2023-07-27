@@ -1,11 +1,19 @@
 #include "minishell.h"
 
+// Convert the $args, ${}, $?
+// Store the HEREDOC exit keyword inside struct and remove?
+// Convert command to bitshift variables and remove?
+// Tweak STRTOK for less lines
+
+
+
 int	main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
 	char	*input;
-	//t_input	*linkedlist;
+	t_input	*linkedlist;
+
 	init_env(env);
 	while (true)
 	{
@@ -21,35 +29,10 @@ int	main(int ac, char **av, char **env)
 		// Add to history
 		add_history(input);
 
-		// Parser input and Store in Linked list
-		t_parser *token = ft_sstrtok(input);
-		t_input *linkedlist = NULL;
-		t_input *linkedlisthead = NULL;
-		int i = 0;
+		// Split everything
+		linkedlist = parse_input(input);
 
-		while (token->str)
-		{
-			t_input *newNode = malloc(sizeof(t_input));
-			newNode->index = i++;
-			newNode->str = ft_strdup(token->str);
-			newNode->flags = token->flags;
-			newNode->next = NULL;
-			if (!linkedlist)
-			{
-				linkedlist = newNode;
-				linkedlisthead = linkedlist;
-			}
-			else
-			{
-				linkedlist->next = newNode;
-				linkedlist = linkedlist->next;
-			}
-			
-			token = ft_sstrtok(0);
-		}
-
-		// Print LL
-		t_input	*temp = linkedlisthead;
+		t_input	*temp = linkedlist;
 		while (temp)
 		{
 			printf("[%i] [%s]\n", temp->index, temp->str);
@@ -57,7 +40,6 @@ int	main(int ac, char **av, char **env)
 		}
 
 
-		//linkedlist = parse_input(input);
 	}
 
 	return (0);
