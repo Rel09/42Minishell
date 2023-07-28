@@ -32,6 +32,8 @@ int	main(int ac, char **av, char **env)
 		// Split everything
 		linkedlist = parse_input(input);
 
+
+
 		// Print everything
 		t_input	*temp = linkedlist;
 		while (temp)
@@ -39,6 +41,9 @@ int	main(int ac, char **av, char **env)
 			printf(COLOR_CYAN"[%i] [%s]\n"COLOR_RESET, temp->index, temp->str);
 			temp = temp->next;    
 		}
+
+
+		
 		free_input(linkedlist);
 	}
 

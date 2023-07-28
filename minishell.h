@@ -43,13 +43,13 @@ typedef struct s_parser// ft_sstrtok Conversion
 
 enum e_flagstype
 {
-	LEFT_2SMALLER_THAN = 1 << 0,
+	LEFT_2SMALLER_THAN = 1 << 0, // HEREDOC
 	RIGHT_2SMALLER_THAN = 1 << 1,
-	LEFT_2BIGGER_THAN = 1 << 2,
+	LEFT_2BIGGER_THAN = 1 << 2,	// OUT APPEND
 	RIGHT_2BIGGER_THAN = 1 << 3,
-	LEFT_SMALLER_THAN = 1 << 4,
+	LEFT_SMALLER_THAN = 1 << 4, // INFILE
 	RIGHT_SMALLER_THAN = 1 << 5,
-	LEFT_BIGGER_THAN = 1 << 6,
+	LEFT_BIGGER_THAN = 1 << 6, // OUT OVERWRITE
 	RIGHT_BIGGER_THAN = 1 << 7,
 	LEFT_PIPE = 1 << 8,
 	RIGHT_PIPE = 1 << 9
@@ -66,6 +66,7 @@ void		set_flags(uint16_t *flags, uint8_t value, bool right);
 //		Display Env
 void		show_env();
 void		show_env_export(void);
+char		*find_and_return(char *str);
 
 //		Env
 char   		***get_env();
@@ -78,6 +79,12 @@ void		find_and_remove(char *str);
 
 // -----------
 
+// Commands
+int			*get_lastresult();
+
+// Expander
+
+
 // Tools
 bool		ft_isdigit(int c);
 bool		ft_isalpha(int c);
@@ -86,6 +93,7 @@ uint8_t		is_quote(char	*str);
 char		*ft_strdup(char *src);
 char 		*ft_trimstr(char *str);
 t_parser	*ft_sstrtok(char *str);//
+uint8_t		ft_isvariable(char *str);
 size_t		ft_strlen(const char *s);
 uint8_t		is_delimiter(char	*str);
 void		ft_bzero(void *s, size_t n);
@@ -102,7 +110,5 @@ void    	ft_copy2darray(char ***dist, char **src);
 bool    	ft_isin2darray(char **src, char *tofind);
 void    	ft_remove2darray(char ***dist, char **src, char *str);
 void    	ft_insert2darray(char ***dist, char **src, char *newstr);
-
-
 
 #endif
