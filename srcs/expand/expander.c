@@ -5,7 +5,7 @@ char	*expand_vars(char *str)
 {
 	int		i;
 	int		j;
-	char	*newstr;
+	//char	*newstr;
 	char	temp[200];
 
 	i = -1;
@@ -18,4 +18,5 @@ char	*expand_vars(char *str)
 				temp[j++] = str[i++];
 		}
 	}
+	return (0);
 }

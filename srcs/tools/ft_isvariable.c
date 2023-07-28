@@ -26,5 +26,5 @@ uint8_t	ft_isvariable(char *str)
 
 		}
 	}
-
+	return (0);
 }
