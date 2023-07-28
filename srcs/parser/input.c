@@ -11,11 +11,22 @@ static void    init_node(t_input *newNode, int index, t_parser *token)
         printf("Malloc error while trying to add Node to LL\n");
         exit(1);
     }
+
+
     temp = ft_strdup(token->str);
+
+
     newNode->str = ft_trimstr(temp);
+
+
     free(temp);
+
+
+
     newNode->index = index;
     newNode->flags = token->flags;
+    newNode->stdin = 0;
+    newNode->stdout = 1;
     newNode->next = NULL;
 }
 

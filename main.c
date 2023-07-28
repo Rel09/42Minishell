@@ -16,9 +16,10 @@ int	main(int ac, char **av, char **env)
 	printf(COLOR_BLUE"\nWelcome to Minishell\n\n"COLOR_RESET);
 	while (true)
 	{
-		
 		// Read Input
-		input = readline(COLOR_MAGENTA"Minishell > "COLOR_RESET);
+		printf(COLOR_MAGENTA);
+		input = readline("Minishell > ");
+		printf(COLOR_RESET);
 		if (!input)
 		{
 			printf("Readline Input Error\n");
@@ -39,8 +40,8 @@ int	main(int ac, char **av, char **env)
 			temp = temp->next;    
 		}
 		free_input(linkedlist);
-
 	}
 
+	rl_clear_history();
 	return (0);
 }

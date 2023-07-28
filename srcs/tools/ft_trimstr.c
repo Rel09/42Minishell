@@ -8,10 +8,8 @@ char *ft_trimstr(char *str)
     char    *newstr;
     int     end_index;
 
-    if (!str) {
-        printf("ERROR WTF\n");
+    if (!str) 
         return str;
-    }
     while (ft_isspace(*str))
         str++;
     len = ft_strlen(str);

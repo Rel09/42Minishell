@@ -28,6 +28,10 @@ typedef struct s_input// Final Output
     int				index;
     char			*str;
     uint16_t		flags;
+
+	int				stdin;
+	int				stdout;
+	
     struct s_input	*next;
 }	t_input;
 
