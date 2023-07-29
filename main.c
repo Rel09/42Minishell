@@ -32,17 +32,28 @@ int	main(int ac, char **av, char **env)
 		linkedlist = parse_input(input);
 
 		// Print everything
+		/*
 		t_input	*temp = linkedlist;
 		while (temp)
 		{
-			printf(COLOR_CYAN"[%i] [%s]\n"COLOR_RESET, temp->index, temp->str);
+			printf(COLOR_CYAN);
+
+			for (int i = 0; temp->commands[i]; i++)
+			{
+				printf("[%s] ", temp->commands[i]);
+			}
+			printf("\n");
+
+
+			printf(COLOR_RESET);
 			temp = temp->next;    
 		}
+		*/
 		
 
-		free_input(linkedlist);
+		//free_input(linkedlist);
 	}
-
+	free_env();
 	rl_clear_history();
 	return (0);
 }

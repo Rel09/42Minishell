@@ -1,56 +1,140 @@
 #include "../../minishell.h"
 
-// Tell sstrktok to skip one or two char, depending on the delimiter
-// it also skip the second char, 
-// its not really needed since strtok will skip it but yea
-static void sstrtok_helper(char **stock) {
-	uint8_t	size;
+static uint8_t  is_delim(char *str)
+{
+    int     i;
+    char    *delimiters[4];
 
-	size = 1;
-    if (is_delimiter(*stock) == 4 || is_delimiter(*stock) == 5)
-		size = 2;
-	ft_bzero(*stock, size);
-	*stock += size;
+    i = -1;
+    delimiters[0] = "<<";
+    delimiters[1] = ">>";
+    delimiters[2] = "<";
+    delimiters[3] = ">";
+    while (++i < 4)
+    {
+        if (!ft_strncmp(str, delimiters[i], ft_strlen(delimiters[i])))
+            return true;
+    }
+    return false;
 }
 
-// Split the entire thing
-t_parser	*ft_sstrtok(char *str)
+char    *ft_strtok(char *str)
 {
-	static t_parser	output;
-	static char		*stock;
-	static char		*head;
-	bool			swltch;
-	uint8_t			quote;
+    static char *output;
+    static char *stock;
+    bool        swtch;
+    uint8_t     quote;
 
-	swltch = false;
-	ft_bzero(&output, sizeof(output));
-	if (str)
-	{
-		stock = ft_strdup(str);
-		head = stock;
-		if (is_delimiter(stock))
-			set_flags(&output.flags, is_delimiter(stock), false);
-	}
-	while (*stock)
-	{
-		if (!swltch && !is_delimiter(stock))
-		{
-			swltch = true;
-			output.str = stock;
-		}
-		else if (swltch && quote == 0 && is_delimiter(stock))
-		{
-			set_flags(&output.flags, is_delimiter(stock), true);
-			sstrtok_helper(&stock);
-			break ;
-		}
-		if (swltch && quote == 0 && is_quote(stock))
-			quote = is_quote(stock);
-		else if (swltch && quote != 0 && quote == is_quote(stock))
-			quote = 0;
-		stock++;
-	}
-	if (!output.str && head)
-		free(head);
-	return (&output);
+    output = 0;
+    quote = 0;
+    swtch = false;
+    if (str)
+        stock = str;
+    while (*stock)
+    {
+        if (!swtch && !(*stock == '|'))
+        {
+            swtch = true;
+            output = stock;
+        }
+        else if (swtch && !quote && *stock == '|')
+        {
+            *stock = 0;
+            stock++;
+            break;
+        }
+        if (swtch && !quote && ft_isquote(stock))
+            quote = ft_isquote(stock);
+        else if (swtch && quote && quote == ft_isquote(stock))
+            quote = 0;
+        stock++;
+    }
+    return (output);
+}
+
+
+char    *ft_strtok_monkas(char *str)
+{
+    static char *output;
+    static char *stock;
+    bool        swtch;
+    uint8_t     quote;
+    static char last_char;
+
+    output = 0;
+    quote = 0;
+    swtch = false;
+    if (str)
+        stock = str;
+    if (last_char)
+    {
+        *stock = last_char;
+        last_char = 0;
+    }
+
+    while (ft_isspace(*stock))
+        stock++;
+
+    // If this char is a Delimiter, Split
+    if (is_delim(stock))
+    {
+        if (!ft_strncmp(stock, "<<", 2))
+        {
+            stock += 2;
+            return "<<";
+        }
+        else if (!ft_strncmp(stock, ">>", 2))
+        {
+            stock += 2;
+            return ">>";
+        }
+        else if (!ft_strncmp(stock, "<", 1))
+        {
+            stock++;
+            return "<";
+        }
+        else if (!ft_strncmp(stock, ">", 1))
+        {
+            stock++;
+            return ">";
+        }
+    }
+    while (*stock)
+    {
+    
+        // Record Start
+        if (!swtch && !(ft_isspace(*stock)))
+        {
+            swtch = true;
+            output = stock;
+        }
+
+        // Record Stop
+        else if (swtch && !quote && ft_isspace(*stock))
+        {
+            *stock = 0;
+            stock++;
+            break;
+        }
+        
+        // Special Delimiters
+        if (swtch && !quote && is_delim(stock))
+        {
+            last_char = *stock;
+            *stock = 0;
+            break;
+        }
+        
+        // Quote Start
+        if (swtch && !quote && ft_isquote(stock))
+            quote = ft_isquote(stock);
+
+        // Quote End
+        else if (swtch && quote && quote == ft_isquote(stock))
+            quote = 0;
+
+        stock++;
+    }
+
+    return (output);
 }

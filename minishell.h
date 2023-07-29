@@ -26,38 +26,12 @@
 
 typedef struct s_input// Final Output
 {
-    int				index;
-	char			*str;
-
-
-    uint16_t		flags;
-
-
+	char			**commands;
 	int				_stdin;
 	int				_stdout;
-	
+	struct s_input	*previous;
     struct s_input	*next;
 }	t_input;
-
-typedef struct s_parser// ft_sstrtok Conversion
-{
-    char			*str;
-    uint16_t		flags;
-}	t_parser;
-
-enum e_flagstype
-{
-	LEFT_2SMALLER_THAN = 1 << 0, // HEREDOC
-	RIGHT_2SMALLER_THAN = 1 << 1,
-	LEFT_2BIGGER_THAN = 1 << 2,	// OUT APPEND
-	RIGHT_2BIGGER_THAN = 1 << 3,
-	LEFT_SMALLER_THAN = 1 << 4, // INFILE
-	RIGHT_SMALLER_THAN = 1 << 5,
-	LEFT_BIGGER_THAN = 1 << 6, // OUT OVERWRITE
-	RIGHT_BIGGER_THAN = 1 << 7,
-	LEFT_PIPE = 1 << 8,
-	RIGHT_PIPE = 1 << 9
-};
 
 // Parsing
 t_input 	*parse_input(char *input);
@@ -88,21 +62,22 @@ int			*get_lastresult();
 
 // Expander
 
-
 // Tools
 bool		ft_isdigit(int c);
 bool		ft_isalpha(int c);
 bool    	ft_isspace(char c);
-uint8_t		is_quote(char	*str);
+uint8_t		ft_isquote(char	*str);
 char		*ft_strdup(char *src);
 char 		*ft_trimstr(char *str);
-t_parser	*ft_sstrtok(char *str);//
 uint8_t		ft_isvariable(char *str);
 size_t		ft_strlen(const char *s);
-uint8_t		is_delimiter(char	*str);
 void		ft_bzero(void *s, size_t n);
 int			ft_strcmp(char *s1, char *s2);
+char		*ft_strtok_special(char *str);
 bool		ft_iscorrectenvname(char *str);
+char		*ft_strtok(char *str);
+char    	*ft_strtok_monkas(char *str);
+char		**ft_split(char const *s, char c);
 char		*ft_strncat(char *dest, char *src, int nb);
 int			ft_strncmp(char *s1, char *s2, unsigned int n);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);

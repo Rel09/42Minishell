@@ -4,16 +4,20 @@ uint8_t	ft_isvariable(char *str)
 {
 	int		i;
 
+	// 0 = $?
+	// 1 = $ARG
+	// 2 = ${ARG}
+	// 3 = INVALID
+
 	i = 0;
 	if (str[i] == '$')
 	{
 		i++;
-		// { } FORMAT
-		//if (str[i] == '{')
-		//{
-			//i++;
-			//if (ft_iscorrectenvname(str[i]) || str[i] == '}')
-		//}
+		//{ } FORMAT
+		if (str[i] == '{')
+		{
+			
+		}
 
 		// $?
 		else if (str[i] == '?')

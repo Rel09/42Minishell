@@ -1,35 +1,31 @@
 #include "../../minishell.h"
 
 
-// Init the node, to save lines
-static void    init_node(t_input *newNode, int index, t_parser *token)
+// Init the node, here the << >> < > are split by strtok_monkas
+static void    init_node(t_input *newNode, char *token)
 {
-    char    *temp;
+    char *commands;
     
     if (!newNode)
     {
         printf("Malloc error while trying to add Node to LL\n");
         exit(1);
     }
-
-
-    temp = ft_strdup(token->str);
-
-
-
-    newNode->str = ft_trimstr(temp);
-
     
+    commands = ft_strtok_monkas(token);
+    while (commands)
+    {
+        printf("[%s] ", commands);
 
-    free(temp);
-
-
-
-    newNode->index = index;
-    newNode->flags = token->flags;
+        commands = ft_strtok_monkas(0);
+        // build 2d array with those here
+    }
+    printf("\n");
+    
     newNode->_stdin = 0;
     newNode->_stdout = 1;
     newNode->next = NULL;
+    newNode->previous = NULL;
 }
 
 // Init the next node in the linkedlist / linkedlisthead, to save lines
@@ -47,25 +43,27 @@ static void init_next(t_input **ll, t_input **newnode, t_input **llh)
     }
 }
 
-// Split everything with the << >> < > |*/
+// Split the | commands
 t_input *parse_input(char *input)
 {
-    int         index;
-    t_parser    *token;
+    char        *token;
     t_input     *newNode;
     t_input     *linkedlist;
+    t_input     *previousNode;
     t_input     *linkedlisthead;
 
-    index = -1;
-    linkedlist = 0; 
-    linkedlisthead = 0;
-    token = ft_sstrtok(input);
-    while (token->str)
+    linkedlist = NULL;
+    previousNode = NULL;
+    linkedlisthead = NULL;
+    token = ft_strtok(input);
+    while (token)
     {
         newNode = malloc(sizeof(t_input));
-        init_node(newNode, ++index, token);
+        init_node(newNode, token);
         init_next(&linkedlist, &newNode, &linkedlisthead);
-        token = ft_sstrtok(0);
-    }
-    return (linkedlisthead);
+        newNode->previous = previousNode;
+        previousNode = newNode;
+        token = ft_strtok(NULL);
+        }
+    return linkedlisthead;
 }
