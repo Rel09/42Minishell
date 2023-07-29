@@ -9,6 +9,7 @@
 # define COLOR_MAGENTA   "\033[35m"
 # define COLOR_CYAN      "\033[36m"
 # define COLOR_WHITE     "\033[37m"
+# define COLOR_KIRBY_PINK "\033[38;5;218m"
 
 # include <stdbool.h>//									Bool
 # include <stdio.h>// 									Printf
@@ -26,11 +27,14 @@
 typedef struct s_input// Final Output
 {
     int				index;
-    char			*str;
+	char			*str;
+
+
     uint16_t		flags;
 
-	int				stdin;
-	int				stdout;
+
+	int				_stdin;
+	int				_stdout;
 	
     struct s_input	*next;
 }	t_input;

@@ -7,21 +7,22 @@ uint8_t	ft_isvariable(char *str)
 	i = 0;
 	if (str[i] == '$')
 	{
-
+		i++;
 		// { } FORMAT
-		if (str[i + 1] == '{')
-		{
-
-		}
+		//if (str[i] == '{')
+		//{
+			//i++;
+			//if (ft_iscorrectenvname(str[i]) || str[i] == '}')
+		//}
 
 		// $?
-		else if (str[i + 1] == '?')
+		else if (str[i] == '?')
 		{
 
 		}
 
 		// $ARG
-		else if (!ft_isspace(str[i + 1]))
+		else if (!ft_isspace(str[i]))
 		{
 
 		}

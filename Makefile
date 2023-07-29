@@ -81,6 +81,8 @@ leaks: $(NAME)
 	valgrind --track-fds=yes --trace-children=yes ./$(NAME)
 
 run: $(NAME)
+	@echo "$$(cat ./readline/historydef)"
+	@say -v Thomas Bienvenue sur le Minishell de Monsieur ramme-say
 	@./$(NAME)
 
 #---------------------------       Phony        ---------------------------

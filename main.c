@@ -13,11 +13,10 @@ int	main(int ac, char **av, char **env)
 	t_input	*linkedlist;
 
 	init_env(env);
-	printf(COLOR_BLUE"\nWelcome to Minishell\n\n"COLOR_RESET);
 	while (true)
 	{
 		// Read Input
-		printf(COLOR_MAGENTA);
+		printf(COLOR_KIRBY_PINK);
 		input = readline("Minishell > ");
 		printf(COLOR_RESET);
 		if (!input)
@@ -32,8 +31,6 @@ int	main(int ac, char **av, char **env)
 		// Split everything
 		linkedlist = parse_input(input);
 
-
-
 		// Print everything
 		t_input	*temp = linkedlist;
 		while (temp)
@@ -42,6 +39,7 @@ int	main(int ac, char **av, char **env)
 			temp = temp->next;    
 		}
 		
+
 		free_input(linkedlist);
 	}
 
