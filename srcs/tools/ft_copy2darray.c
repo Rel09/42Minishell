@@ -12,8 +12,8 @@ void    ft_copy2darray(char ***dist, char **src)
         printf("Malloc error while making new Env\n");
         exit(1);
     }
-    i = -1;
-    while (src[++i])
+    i = 0;
+    while (src[i])
     {
         new[i] = ft_strdup(src[i]);
         if (!new[i])
@@ -21,7 +21,8 @@ void    ft_copy2darray(char ***dist, char **src)
             printf("Malloc error while Copying Env\n");
             exit(1);
         }
+        i++;
     }
-    new[++i] = 0;
+    new[i] = 0;
     *dist = new;
 }

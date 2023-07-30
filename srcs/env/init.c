@@ -43,10 +43,10 @@ void    free_env()
     int     i;
     char    **e;
 
-    i = -1;
+    i = 0;
     e = *get_env();
-    while (e[++i])
-        free(e[i]);
+    while (e[i])
+        free(e[i++]);
     free(e);
     *get_env() = 0;
 }

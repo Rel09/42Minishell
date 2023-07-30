@@ -1,9 +1,35 @@
 #include "minishell.h"
 
-// Convert the $args, ${}, $?
-// Store the HEREDOC exit keyword inside struct and remove?
-// Convert command to bitshift variables and remove?
-// Tweak STRTOK for less lines
+
+void	print_linkedlist(t_input	*LL)
+{
+	//t_input	*temp = LL;
+	while (LL)
+	{
+		for (int i = 0; LL->commands[i]; i++) {
+			printf("[%s] ", LL->commands[i]);
+		}
+		printf("     STDIN:[%i]  STDOUT:[%i]\n", LL->_stdin, LL->_stdout);
+		LL = LL->next;
+	}
+
+	// Testing for Previous node
+	/*
+	while (temp && temp->next)
+		temp = temp->next;
+
+    while (temp)
+    {
+        for (int i = 0; temp->commands[i]; i++) {
+			printf("[%s] ", temp->commands[i]);
+		}
+		printf("     STDIN:[%i]  STDOUT:[%i]\n", temp->_stdin, temp->_stdout);
+		temp = temp->previous;
+    }
+	*/
+
+}
+
 
 int	main(int ac, char **av, char **env)
 {
@@ -11,7 +37,6 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	char	*input;
 	t_input	*linkedlist;
-
 	init_env(env);
 	while (true)
 	{
@@ -24,35 +49,16 @@ int	main(int ac, char **av, char **env)
 			printf("Readline Input Error\n");
 			return (1);
 		}
-
-		// Add to history
 		add_history(input);
-
-		// Split everything
 		linkedlist = parse_input(input);
 
-		// Print everything
-		/*
-		t_input	*temp = linkedlist;
-		while (temp)
-		{
-			printf(COLOR_CYAN);
 
-			for (int i = 0; temp->commands[i]; i++)
-			{
-				printf("[%s] ", temp->commands[i]);
-			}
-			printf("\n");
-
-
-			printf(COLOR_RESET);
-			temp = temp->next;    
-		}
-		*/
+		print_linkedlist(linkedlist);
 		
 
-		//free_input(linkedlist);
+		free_input(linkedlist);
 	}
+
 	free_env();
 	rl_clear_history();
 	return (0);

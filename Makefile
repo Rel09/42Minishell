@@ -1,8 +1,8 @@
 CC = gcc
 RM = rm -rf
 NAME = minishell
-FLAG = -Wall -Wextra -Werror
-SPECIAL_FLAG = -lreadline
+FLAG = 
+SPECIAL_FLAG = -L./readline -lreadline -lhistory -ltermcap
 
 # Source files
 FILES := main.c \
@@ -10,18 +10,20 @@ FILES := main.c \
 		srcs/env/show.c \
 		srcs/env/findandremove.c \
         srcs/parser/input.c \
+		srcs/parser/compute.c \
 		srcs/expand/expander.c \
-		srcs/commands/lastresult.c \
+		srcs/tools/ft_itoa.c \
 		srcs/tools/ft_bzero.c \
 		srcs/tools/ft_strtok.c \
 		srcs/tools/ft_strlen.c \
+		srcs/tools/ft_strcpy.c \
 		srcs/tools/ft_strdup.c \
 		srcs/tools/ft_strcmp.c \
-		srcs/tools/ft_trimstr.c \
+		srcs/tools/ft_isquote.c \
+		srcs/tools/ft_isredir.c \
 		srcs/tools/ft_isdigit.c \
 		srcs/tools/ft_isalpha.c \
 		srcs/tools/ft_strncmp.c \
-		srcs/tools/ft_isquote.c \
 		srcs/tools/ft_strncat.c \
 		srcs/tools/ft_isspace.c \
 		srcs/tools/ft_strncpy.c \
@@ -33,6 +35,7 @@ FILES := main.c \
 		srcs/tools/ft_insert2darray.c \
 		srcs/tools/ft_remove2darray.c \
 		srcs/tools/ft_freelinkedlist.c \
+		srcs/tools/ft_getvariablelen.c \
 		srcs/tools/ft_iscorrectenvname.c
 
 # Object files
@@ -62,8 +65,9 @@ $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 
 # Build the final executable
 $(NAME): $(OBJS)
-	@$(CC) $(FLAG) $(OBJS) -lncurses $(READLINE) $(HISTORY) -o $(NAME) $(SPECIAL_FLAG)
+	@$(CC) $(FLAG) $(OBJS) -lncurses -o $(NAME) $(SPECIAL_FLAG)
 	@echo $(SUCCESS)
+
 
 #---------------------------     Cleaning      ---------------------------
 clean:
@@ -76,7 +80,7 @@ fclean: clean
 re: fclean all
 
 leaks: $(NAME)
-	valgrind --track-fds=yes --trace-children=yes ./$(NAME)
+	valgrind --track-fds=yes --trace-children=yes --leak-check=full ./$(NAME)
 
 run: $(NAME)
 	@echo "$$(cat ./readline/historydef)"

@@ -1,21 +1,21 @@
 #include "../../minishell.h"
 
-static uint8_t  is_delim(char *str)
+int     count_strtok_monkas(char *str)
 {
+    char    *commands;
+    char    *temp;
     int     i;
-    char    *delimiters[4];
-
-    i = -1;
-    delimiters[0] = "<<";
-    delimiters[1] = ">>";
-    delimiters[2] = "<";
-    delimiters[3] = ">";
-    while (++i < 4)
+    
+    i = 0;
+    temp = ft_strdup(str);
+    commands = ft_strtok_monkas(temp);
+    while (commands)
     {
-        if (!ft_strncmp(str, delimiters[i], ft_strlen(delimiters[i])))
-            return true;
+        i++;
+        commands = ft_strtok_monkas(NULL);
     }
-    return false;
+    free (temp);
+    return (i);
 }
 
 char    *ft_strtok(char *str)
@@ -52,7 +52,6 @@ char    *ft_strtok(char *str)
     return (output);
 }
 
-
 char    *ft_strtok_monkas(char *str)
 {
     static char *output;
@@ -66,6 +65,7 @@ char    *ft_strtok_monkas(char *str)
     swtch = false;
     if (str)
         stock = str;
+
     if (last_char)
     {
         *stock = last_char;
@@ -76,7 +76,7 @@ char    *ft_strtok_monkas(char *str)
         stock++;
 
     // If this char is a Delimiter, Split
-    if (is_delim(stock))
+    if (ft_isredir(stock))
     {
         if (!ft_strncmp(stock, "<<", 2))
         {
@@ -118,7 +118,7 @@ char    *ft_strtok_monkas(char *str)
         }
         
         // Special Delimiters
-        if (swtch && !quote && is_delim(stock))
+        if (swtch && !quote && ft_isredir(stock))
         {
             last_char = *stock;
             *stock = 0;

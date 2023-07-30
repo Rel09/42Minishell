@@ -11,10 +11,7 @@ char	*ft_strdup(char *src)
         size++;
 	new = malloc(size + 1);
     if (!new)
-	{
-		printf("Error inside FT_STRDUP\n");
 		return (0);
-	}
 	i = -1;
 	while (src[++i])
 		new[i] = src[i];

@@ -51,5 +51,5 @@ char	*find_and_return(char *str)
 		if (!ft_strncmp(e[i], str, len))
 			return (&e[i][len]);
 	}
-	return (0);
+	return ("");
 }
