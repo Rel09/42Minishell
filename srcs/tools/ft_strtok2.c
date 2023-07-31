@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strtok2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 20:33:48 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 22:06:30 by dpotvin          ###   ########.fr       */
+/*   Created: 2023/07/31 00:33:31 by dpotvin           #+#    #+#             */
+/*   Updated: 2023/07/31 01:51:28 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-size_t	ft_strlen(const char *s)
+void ft_strtokhelper2(bool *swtch, uint8_t *quote, char *stock)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	if (*swtch && !*quote && ft_isquote(stock))
+		*quote = ft_isquote(stock);
+	else if (*swtch && *quote && *quote == ft_isquote(stock))
+		*quote = 0;
 }
+
+

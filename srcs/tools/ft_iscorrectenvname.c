@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:15 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:33:16 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/30 21:41:11 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ bool	ft_iscorrectenvname(char *str)
 	int	i;
 
 	if (!(ft_isalpha(str[0]) || str[0] == '_'))
-		return false;
+		return (false);
 	i = 1;
 	while (str[i] && str[i] != '=')
 	{
 		if (!(ft_isalpha(str[i]) || ft_isdigit(str[i]) || str[i] == '_'))
-			return false;
+			return (false);
 		i++;
 	}
-	return true;
+	return (true);
 }

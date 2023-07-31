@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/31 01:52:54 by dpotvin           #+#    #+#             */
+/*   Updated: 2023/07/31 01:52:55 by dpotvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-
-void	print_linkedlist(t_input	*LL)
+void	print_linkedlist(t_input *LL)
 {
 	//t_input	*temp = LL;
 	while (LL)
@@ -30,7 +41,6 @@ void	print_linkedlist(t_input	*LL)
 
 }
 
-
 int	main(int ac, char **av, char **env)
 {
 	(void)ac;
@@ -40,7 +50,6 @@ int	main(int ac, char **av, char **env)
 	init_env(env);
 	while (true)
 	{
-		// Read Input
 		printf(COLOR_KIRBY_PINK);
 		input = readline("Minishell > ");
 		printf(COLOR_RESET);
@@ -51,15 +60,11 @@ int	main(int ac, char **av, char **env)
 		}
 		add_history(input);
 		linkedlist = parse_input(input);
-
-
-		print_linkedlist(linkedlist);
-		
-
-		free_input(linkedlist);
+		print_linkedlist(linkedlist);		// temp
+		free_input(linkedlist);				// free
+		//break;							// Valgrind Test
 	}
-
-	free_env();
-	rl_clear_history();
+	free_env();								// free
+	rl_clear_history();						// free
 	return (0);
 }

@@ -6,18 +6,18 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:04 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:33:05 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/30 21:28:03 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int ft_count2darray(char **s)
+int	ft_count2darray(char **s)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (s[i])
-        i++;
-    return (i);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

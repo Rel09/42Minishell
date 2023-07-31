@@ -40,10 +40,14 @@ enum e_redir_error_codes
 	STDIN_FILE_NO_EXIST = -200,
 	STDIN_FAILED_DUP2 = -201
 };
+
 // Parsing
-t_input 	*parse_input(char *input);
 void 		free_input(t_input *head);
-void     	compute_node(char   *command, t_input *node, int *index);
+t_input 	*parse_input(char *input);
+char		*remove_quotes(char	*str);
+char		*convert_all_args(char *command);
+char		*convert_all_the_shit_and_malloc(char *str);
+void     	compute_node(char *command, t_input *node, int *index);
 
 
 // --- ENV ---
@@ -87,9 +91,12 @@ int			ft_strcmp(char *s1, char *s2);
 bool		ft_iscorrectenvname(char *str);
 int     	count_strtok_monkas(char *str);
 char    	*ft_strcpy(char *dest, char *src);
+char		*ft_charncat(char *dest, char c, size_t n);
 char		*ft_strncat(char *dest, char *src, int nb);
 int			ft_strncmp(char *s1, char *s2, unsigned int n);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
+void 		ft_strtokhelper2(bool *swtch, uint8_t *quote, char *stock);
+
 
 // 2D Array
 int 		ft_count2darray(char **s);

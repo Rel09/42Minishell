@@ -6,147 +6,133 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:57 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:33:58 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/31 01:49:51 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int     count_strtok_monkas(char *str)
+int	count_strtok_monkas(char *str)
 {
-    char    *commands;
-    char    *temp;
-    int     i;
-    
-    i = 0;
-    temp = ft_strdup(str);
-    commands = ft_strtok_monkas(temp);
-    while (commands)
-    {
-        i++;
-        commands = ft_strtok_monkas(NULL);
-    }
-    free (temp);
-    return (i);
+    char	*commands;
+    char	*temp;
+    int		i;
+
+	i = 0;
+	temp = ft_strdup(str);
+	commands = ft_strtok_monkas(temp);
+	while (commands)
+	{
+		i++;
+		commands = ft_strtok_monkas(NULL);
+	}
+	free (temp);
+	return (i);
 }
 
-char    *ft_strtok(char *str)
+char	*ft_strtok(char *str)
 {
-    static char *output;
-    static char *stock;
-    bool        swtch;
-    uint8_t     quote;
+    static char	*output;
+    static char	*stock;
+    bool		swtch;
+    uint8_t		quote;
 
-    output = 0;
-    quote = 0;
-    swtch = false;
-    if (str)
-        stock = str;
-    while (*stock)
-    {
-        if (!swtch && !(*stock == '|'))
-        {
-            swtch = true;
-            output = stock;
-        }
-        else if (swtch && !quote && *stock == '|')
-        {
-            *stock = 0;
-            stock++;
-            break;
-        }
-        if (swtch && !quote && ft_isquote(stock))
-            quote = ft_isquote(stock);
-        else if (swtch && quote && quote == ft_isquote(stock))
-            quote = 0;
-        stock++;
-    }
-    return (output);
+	output = 0;
+	quote = 0;
+	swtch = false;
+	if (str)
+		stock = str;
+	while (*stock)
+	{
+		if (!swtch && !(*stock == '|'))
+		{
+			swtch = true;
+			output = stock;
+		}
+		else if (swtch && !quote && *stock == '|')
+		{
+			*stock = 0;
+			stock++;
+			break;
+		}
+		ft_strtokhelper2(&swtch, &quote, stock);
+		stock++;
+	}
+	return (output);
 }
 
-char    *ft_strtok_monkas(char *str)
+static char	*return_redirtype(char	**stock)
 {
-    static char *output;
-    static char *stock;
-    bool        swtch;
-    uint8_t     quote;
-    static char last_char;
+	if (!ft_strncmp(*stock, "<<", 2))
+	{
+		(*stock) += 2;
+		return "<<";
+	}
+	else if (!ft_strncmp(*stock, ">>", 2))
+	{
+		(*stock) += 2;
+		return ">>";
+	}
+	else if (!ft_strncmp(*stock, "<", 1))
+	{
+		(*stock)++;
+		return "<";
+	}
+	else
+	{
+		(*stock)++;
+		return ">";
+	}
+}
 
-    output = 0;
-    quote = 0;
-    swtch = false;
-    if (str)
-        stock = str;
+void	strtok_helper(char *str, char **stock, char *last_char)
+{
+	if (str)
+		*stock = str;
+	if (*last_char != '\0')
+	{
+		**stock = *last_char;
+		*last_char = '\0';
+	}
+	while (**stock != '\0' && isspace(**stock))
+		(*stock)++;
+}
 
-    if (last_char)
-    {
-        *stock = last_char;
-        last_char = 0;
-    }
+char	*ft_strtok_monkas(char *str)
+{
+    static char	*output;
+    static char	*stock;
+    bool		swtch;
+    uint8_t		quote;
+    static char	last_char;
 
-    while (ft_isspace(*stock))
-        stock++;
-
-    // If this char is a Delimiter, Split
+	output = 0;
+	quote = 0;
+	swtch = false;
+	strtok_helper(str, &stock, &last_char);
     if (ft_isredir(stock))
-    {
-        if (!ft_strncmp(stock, "<<", 2))
-        {
-            stock += 2;
-            return "<<";
-        }
-        else if (!ft_strncmp(stock, ">>", 2))
-        {
-            stock += 2;
-            return ">>";
-        }
-        else if (!ft_strncmp(stock, "<", 1))
-        {
-            stock++;
-            return "<";
-        }
-        else if (!ft_strncmp(stock, ">", 1))
-        {
-            stock++;
-            return ">";
-        }
-    }
+		return (return_redirtype(&stock));
     while (*stock)
     {
-    
-        // Record Start
         if (!swtch && !(ft_isspace(*stock)))
         {
             swtch = true;
             output = stock;
         }
-
-        // Record Stop
         else if (swtch && !quote && ft_isspace(*stock))
         {
             *stock = 0;
             stock++;
             break;
         }
-        
-        // Special Delimiters
         if (swtch && !quote && ft_isredir(stock))
         {
             last_char = *stock;
             *stock = 0;
             break;
         }
-        
-        // Quote Start
-        if (swtch && !quote && ft_isquote(stock))
-            quote = ft_isquote(stock);
-
-        // Quote End
-        else if (swtch && quote && quote == ft_isquote(stock))
-            quote = 0;
-
+		ft_strtokhelper2(&swtch, &quote, stock);
         stock++;
     }
-
     return (output);
 }

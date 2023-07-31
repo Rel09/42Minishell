@@ -6,13 +6,13 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:09 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:33:10 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/30 21:38:56 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static bool isvalidchar(char c)
+static bool	isvalidchar(char c)
 {
 	return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
 }
@@ -25,8 +25,8 @@ static void	double_increment(int *i, int *len)
 
 int	ft_getvariablelen(char *str)
 {
-	int			i;
-	int			len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = 0;
@@ -35,10 +35,9 @@ int	ft_getvariablelen(char *str)
 		i++;
 		if (str[i] == '{')
 		{
-			len++;
 			while (str[i] && str[i] != '}')
 				double_increment(&i, &len);
-			return (len + 1);
+			return (len + 2);
 		}
 		else if (str[i] == '?')
 			return (2);

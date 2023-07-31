@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:32 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:33:33 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/30 21:47:37 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ static size_t	get_digits(int n)
 	size_t	i;
 
 	i = 1;
-	while (n /= 10)
+	while (n / 10)
+	{
+		n /= 10;
 		i++;
+	}
 	return (i);
 }
 

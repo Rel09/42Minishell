@@ -6,13 +6,13 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:43 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:33:44 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/30 22:05:46 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char    *ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (src[++i])
@@ -20,4 +20,3 @@ char    *ft_strcpy(char *dest, char *src)
 	dest[i] = 0;
 	return (dest);
 }
-  

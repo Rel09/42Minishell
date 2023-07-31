@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:45 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:33:46 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/30 22:06:19 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	*ft_strdup(char *src)
 
 	size = 0;
 	while (src[size])
-        size++;
+		size++;
 	new = malloc(size + 1);
-    if (!new)
+	if (!new)
 		return (0);
 	i = -1;
 	while (src[++i])

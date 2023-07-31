@@ -6,17 +6,16 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:29 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:33:30 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/31 00:23:28 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-
 static char	*get_arg_name(char *str, char delim)
 {
-	int	i;
-	int j;
+	int			i;
+	int			j;
 	static char	temp[100];
 
 	i = 0;
@@ -28,15 +27,15 @@ static char	*get_arg_name(char *str, char delim)
 	return (find_and_return(temp));
 }
 
-static bool isvalidchar(char c)
+static bool	isvalidchar(char c)
 {
 	return (ft_isalpha(c) || ft_isdigit(c) || c == '_');
 }
 
 static char	*get_arg_name2(char *str)
 {
-	int	i;
-	int j;
+	int			i;
+	int			j;
 	static char	temp[100];
 
 	i = 0;
@@ -49,15 +48,9 @@ static char	*get_arg_name2(char *str)
 	return (find_and_return(temp));
 }
 
-
-
-
-
-
 char	*ft_isvariable(char *str)
 {
 	int			i;
-	int			j;
 	char		*temp;
 	static char	cashreturn[11];
 
@@ -66,10 +59,7 @@ char	*ft_isvariable(char *str)
 	{
 		i++;
 		if (str[i] == '{')
-		{
-			i++;
-			return (get_arg_name(&str[i], '}'));
-		}
+			return (get_arg_name(&str[++i], '}'));
 		else if (str[i] == '?')
 		{
 			ft_bzero(cashreturn, 11);

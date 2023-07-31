@@ -1,7 +1,7 @@
 CC = gcc
 RM = rm -rf
 NAME = minishell
-FLAG = 
+FLAG = -Wall -Werror -Wextra
 SPECIAL_FLAG = -L./readline -lreadline -lhistory -ltermcap
 
 # Source files
@@ -11,7 +11,8 @@ FILES := main.c \
 		srcs/env/findandremove.c \
         srcs/parser/input.c \
 		srcs/parser/compute.c \
-		srcs/expand/expander.c \
+		srcs/parser/convertargs.c \
+		srcs/parser/removequotes.c \
 		srcs/tools/ft_itoa.c \
 		srcs/tools/ft_bzero.c \
 		srcs/tools/ft_strtok.c \
@@ -27,6 +28,7 @@ FILES := main.c \
 		srcs/tools/ft_strncat.c \
 		srcs/tools/ft_isspace.c \
 		srcs/tools/ft_strncpy.c \
+		srcs/tools/ft_strtok2.c \
 		srcs/tools/ft_isvariable.c \
 		srcs/tools/ft_isin2darray.c \
 		srcs/tools/ft_sort2darray.c \

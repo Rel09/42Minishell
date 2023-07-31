@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:50 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:33:51 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/30 22:06:58 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strncat(char *dest, char *src, int nb)
 
 char	*ft_charncat(char *dest, char c, size_t n)
 {
-    size_t	i;
+	size_t	i;
 	size_t	j;
 
 	i = 0;
@@ -42,5 +42,5 @@ char	*ft_charncat(char *dest, char c, size_t n)
 		j++;
 	}
 	dest[i] = 0;
-	return dest;
+	return (dest);
 }

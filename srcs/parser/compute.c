@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   compute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/30 20:47:26 by dpotvin           #+#    #+#             */
+/*   Updated: 2023/07/31 00:22:25 by dpotvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 // Change Ouput and close it if its not the default one
@@ -49,42 +61,6 @@ static void	change_input(char *file, t_input *node)
 	}
 }
 
-static char	*convert_all_args(char *command)
-{
-	int			i;
-	char		*var;
-	int			len;
-	bool		quote;
-	bool		edited;
-	static char	newstr[2000];
-
-	i = 0;
-	quote = false;
-	edited = false;
-	ft_bzero(newstr, 2000);
-	while (command[i])
-	{
-		if (command[i] == '\'' && !quote)
-			quote = true;
-		else if (command[i] == '\'' && quote)
-			quote = false;
-		if (!quote && ft_isvariable(&command[i]))
-		{
-			edited = true;
-			len = ft_getvariablelen(&command[i]);
-			var = ft_isvariable(&command[i]);
-			ft_strncat(newstr, command, i);
-			ft_strncat(newstr, var, i + ft_strlen(var) + 2);
-			ft_strncat(newstr, &command[i + (len)], ft_strlen(newstr) + ft_strlen(&command[i + (len)]));
-		}
-		i++;
-	}
-	if (!edited)
-		return (command);
-	return (newstr);
-}
-
-
 // Apply the redirection
 static void	do_redirect(char *type, char* file, t_input *node)
 {
@@ -99,16 +75,12 @@ static void	do_redirect(char *type, char* file, t_input *node)
 }
 
 // Backend for the Redirection and pretty much all
-void     compute_node(char *command, t_input *node, int *index)
+void	compute_node(char *command, t_input *node, int *index)
 {
-	char	*temp;
-	char	*newstr;
-	
 	if (ft_isredir(command))
 		do_redirect(command, ft_strtok_monkas(0), node);
 
 	else {
-
-		node->commands[(*index)++] = ft_strdup(convert_all_args(command));
+		node->commands[(*index)++] = convert_all_the_shit_and_malloc(command);
 	}
 }

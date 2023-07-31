@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/30 20:47:30 by dpotvin           #+#    #+#             */
+/*   Updated: 2023/07/30 22:03:11 by dpotvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 // Init the node, here the commands/delimiter are split by strtok_monkas
@@ -22,6 +34,7 @@ static void    init_node(t_input *newNode, char *token)
     while (commands)
     {
         compute_node(commands, newNode, &i);
+		
         commands = ft_strtok_monkas(0);
     }
     newNode->commands[i] = NULL;
