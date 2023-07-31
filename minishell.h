@@ -22,24 +22,18 @@
 # include "./readline/readline.h"// 					Readline
 # include "./readline/history.h"//						History
 
-int	g_last_result;
+int	g_last_result;	// im not really using this but my expander calls it
 
 typedef struct s_input// Final Output
 {
 	char			**commands;
+	int				commands_len;	// this is ONLY for freeing
 	int				_stdin;
 	int				_stdout;
 	struct s_input	*previous;
     struct s_input	*next;
 }	t_input;
 
-enum e_redir_error_codes
-{
-	STDOUT_FILE_NO_EXIST = -100,
-	STDOUT_FAILED_DUP2 = -101,
-	STDIN_FILE_NO_EXIST = -200,
-	STDIN_FAILED_DUP2 = -201
-};
 
 // Parsing
 void 		free_input(t_input *head);
@@ -49,53 +43,54 @@ char		*convert_all_args(char *command);
 char		*convert_all_the_shit_and_malloc(char *str);
 void     	compute_node(char *command, t_input *node, int *index);
 
-
 // --- ENV ---
 
 //		Display Env
-void		show_env();
-void		show_env_export(void);
+void		show_env();				// env
+void		show_env_export(void);	// export
 char		*find_and_return(char *str);
 
 //		Env
 char   		***get_env();
 void		free_env();
 void    	init_env(char **env);
+void		find_and_remove(char *str);
 
 //		Add / Remove from Env
-void    	add_to_env(char *str);
-void		find_and_remove(char *str);
+void    	add_to_env(char *str);	// send ARG=WHATEVEREARUIASDFI
+void		rem_from_env(char *argname);// just the argname here
 
 // -----------
 
-// Commands
-
-
-// Expander
-
 // Tools
-char		*ft_itoa(int n);
+char		*ft_itoa(int n);	// this NEED to malloc (im freeing it)
 bool		ft_isdigit(int c);
 bool		ft_isalpha(int c);
 bool    	ft_isspace(char c);
-bool  		ft_isredir(char *str);
-uint8_t		ft_isquote(char	*str);
+bool  		ft_isredir(char *str);	//new
+uint8_t		ft_isquote(char	*str);	//new
 char		*ft_strdup(char *src);
-char		*ft_strtok(char *str);
-char		*ft_isvariable(char *str);
+char		*ft_isvariable(char *str);	//new
 size_t		ft_strlen(const char *s);
 void		ft_bzero(void *s, size_t n);
 int			ft_getvariablelen(char *str);
-char    	*ft_strtok_monkas(char *str);
 int			ft_strcmp(char *s1, char *s2);
-bool		ft_iscorrectenvname(char *str);
-int     	count_strtok_monkas(char *str);
+bool		ft_iscorrectenvname(char *str);	//new
 char    	*ft_strcpy(char *dest, char *src);
-char		*ft_charncat(char *dest, char c, size_t n);
+char		*ft_charncat(char *dest, char c, size_t n);	//new
 char		*ft_strncat(char *dest, char *src, int nb);
 int			ft_strncmp(char *s1, char *s2, unsigned int n);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
-void 		ft_strtokhelper2(bool *swtch, uint8_t *quote, char *stock);
+
+// Strtoks - reading this may introduce stage 3 eyes cancer
+char		*ft_strtok(char *str);
+void		strtok_two(char **stock);
+char    	*ft_strtok_monkas(char *str);
+int     	count_strtok_monkas(char *str);
+bool		stok3(char **stock, char *last_char);
+void		strtok_one(uint8_t *swtch, char **output, char *stock);
+void 		ft_strtokhelper2(uint8_t *swtch, uint8_t *quote, char **stock);
+void 		ft_strtokhelper3(char **output, uint8_t *quote, uint8_t *swtch);
 
 
 // 2D Array

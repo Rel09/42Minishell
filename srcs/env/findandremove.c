@@ -13,16 +13,16 @@
 #include "../../minishell.h"
 
 // Backend for find_and_remove
-static void    remove_from_env(char *str)
-{
-    char    **e;
-    char    **newenv;
+static void	remove_from_env(char *str)
+{	
+	char	**e;
+    char	**newenv;
 
-    e = *get_env();
-    ft_remove2darray(&newenv, e, str);
-    ft_sort2darray(&newenv);
-    free_env();
-    *get_env() = newenv;
+	e = *get_env();
+	ft_remove2darray(&newenv, e, str);
+	ft_sort2darray(&newenv);
+	free_env();
+	*get_env() = newenv;
 }
 
 // Find and Remove variable in Env
@@ -48,7 +48,7 @@ void	find_and_remove(char *str)
 }
 
 // Find and Return variable in Env
-// pass ARG name and its value will be returned
+// pass ARG= , and its value will be returned
 char	*find_and_return(char *str)
 {
 	int		i;
@@ -64,4 +64,16 @@ char	*find_and_return(char *str)
 			return (&e[i][len]);
 	}
 	return ("");
+}
+
+void	rem_from_env(char *argname)
+{
+	char	name[200];
+	char	**e;
+
+	e = *get_env();
+	ft_bzero(name, 200);
+	ft_strncat(name, argname, ft_strlen(argname));
+	ft_charncat(name, '=', 1);
+	find_and_remove(name);
 }

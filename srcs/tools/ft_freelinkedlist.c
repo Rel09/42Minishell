@@ -24,9 +24,10 @@ void	free_input(t_input *head)
 	{
 		next = current->next;
 		i = 0;
-		while (current->commands[i])
+		while (i < current->commands_len)
 		{
-			free(current->commands[i]);
+			if (current->commands[i])
+				free(current->commands[i]);
 			i++;
 		}
 		free(current);

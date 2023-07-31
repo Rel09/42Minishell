@@ -13,18 +13,16 @@
 #include "../../minishell.h"
 
 // Init the node, here the commands/delimiter are split by strtok_monkas
-static void    init_node(t_input *newNode, char *token)
+static void init_node(t_input *newNode, char *token)
 {
     int     i;
     char    *commands;
-    
+
     i = 0;
-    newNode->commands = malloc((count_strtok_monkas(token) + 1) * sizeof(char *));
+    newNode->commands_len = count_strtok_monkas(token) + 1;
+    newNode->commands = malloc(newNode->commands_len * sizeof(char *));
     if (!newNode->commands)
-    {
-        printf("Malloc error while trying to malloc new Node in LL\n");
         exit(1);
-    }
     newNode->_stdin = STDIN_FILENO;
     newNode->_stdout = STDOUT_FILENO;
     newNode->next = NULL;
@@ -34,7 +32,6 @@ static void    init_node(t_input *newNode, char *token)
     while (commands)
     {
         compute_node(commands, newNode, &i);
-		
         commands = ft_strtok_monkas(0);
     }
     newNode->commands[i] = NULL;

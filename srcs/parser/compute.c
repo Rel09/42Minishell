@@ -15,50 +15,20 @@
 // Change Ouput and close it if its not the default one
 static void	change_output(char *file, t_input *node, bool append)
 {
-	int	fd;
-	int	ret;
-
+	if (node->_stdout != STDOUT_FILENO)
+		close(node->_stdout);
 	if (append)
-		fd = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		node->_stdout = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else
-		fd = open(file, O_WRONLY | O_CREAT , 0644);
-	if (fd == -1)
-		node->_stdout = STDOUT_FILE_NO_EXIST;
-	else
-	{
-		ret = dup2(node->_stdout, fd);
-		if (ret == -1)
-			node->_stdout = STDOUT_FAILED_DUP2;
-		else
-		{
-			if (node->_stdout != STDOUT_FILENO)
-				close(node->_stdout);
-			node->_stdout = fd;
-		}
-	}
+		node->_stdout = open(file, O_WRONLY | O_CREAT , 0644);
 }
 
 // Change Input and close it if its not the default one
 static void	change_input(char *file, t_input *node)
 {
-	int	fd;
-	int	ret;
-	
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		node->_stdin = STDIN_FILE_NO_EXIST;
-	else
-	{
-		ret = dup2(node->_stdout, fd);
-		if (ret == -1)
-			node->_stdin = STDIN_FAILED_DUP2;
-		else
-		{
-			if (node->_stdin != STDIN_FILENO)
-				close(node->_stdin);
-			node->_stdin = fd;
-		}
-	}
+	if (node->_stdin != STDIN_FILENO)
+		close(node->_stdin);
+	node->_stdin = open(file, O_RDONLY);
 }
 
 // Apply the redirection
@@ -79,8 +49,6 @@ void	compute_node(char *command, t_input *node, int *index)
 {
 	if (ft_isredir(command))
 		do_redirect(command, ft_strtok_monkas(0), node);
-
-	else {
+	else
 		node->commands[(*index)++] = convert_all_the_shit_and_malloc(command);
-	}
 }

@@ -27,10 +27,10 @@ static bool	theresanotherquote(char *str, char quote)
 
 char	*remove_quotes(char *str)
 {
-    static char	newstr[2000];
-    int			i;
-    char		c;
-
+	static char	newstr[2000];
+	int			i;
+	char		c;
+	
 	i = 0;
 	ft_bzero(newstr, 2000);
 	while (str[i])
@@ -51,6 +51,6 @@ char	*remove_quotes(char *str)
 			ft_charncat(newstr, str[i], 1);
 		i++;
 	}
-	return newstr;
+	return (newstr);
 }
 

@@ -62,7 +62,6 @@ int	main(int ac, char **av, char **env)
 		linkedlist = parse_input(input);
 		print_linkedlist(linkedlist);		// temp
 		free_input(linkedlist);				// free
-		//break;							// Valgrind Test
 	}
 	free_env();								// free
 	rl_clear_history();						// free

@@ -38,7 +38,7 @@ char	*convert_all_args(char *command)
 			ft_strncat(newstr, var, data[0] + ft_strlen(var) + 2);
 			data[0] += data[1];
 		}
-		else 
+		else
 			ft_charncat(newstr, command[data[0]++], 1);
 	}
 	return (newstr);

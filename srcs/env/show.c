@@ -25,9 +25,9 @@ void	show_env(void)
 
 void	show_env_export(void)
 {
-	int			i;
-	int			j;
-	char		**t;
+	int		i;
+	int		j;
+	char	**t;
 
 	t = *get_env();
 	i = -1;

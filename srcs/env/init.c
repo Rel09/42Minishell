@@ -15,7 +15,7 @@
 // Hold the Env
 char    ***get_env()
 {
-    static char    **env;
+    static char **env;
 
     return (&env);
 }
@@ -54,7 +54,7 @@ void    free_env()
 {
     int     i;
     char    **e;
-
+    
     i = 0;
     e = *get_env();
     while (e[i])
