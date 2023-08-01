@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:46:34 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:46:35 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/31 21:24:40 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 // Backend for find_and_remove
 static void	remove_from_env(char *str)
-{	
+{
 	char	**e;
-    char	**newenv;
+	char	**newenv;
 
 	e = *get_env();
 	ft_remove2darray(&newenv, e, str);

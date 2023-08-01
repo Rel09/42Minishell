@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/31 00:22:25 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/31 21:28:03 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	change_output(char *file, t_input *node, bool append)
 	if (append)
 		node->_stdout = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else
-		node->_stdout = open(file, O_WRONLY | O_CREAT , 0644);
+		node->_stdout = open(file, O_WRONLY | O_CREAT, 0644);
 }
 
 // Change Input and close it if its not the default one
@@ -32,7 +32,7 @@ static void	change_input(char *file, t_input *node)
 }
 
 // Apply the redirection
-static void	do_redirect(char *type, char* file, t_input *node)
+static void	do_redirect(char *type, char *file, t_input *node)
 {
 	if (!ft_strcmp(type, "<<"))
 		change_input(file, node);

@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:28 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 20:47:29 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/31 21:28:12 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*convert_all_the_shit_and_malloc(char *str)
 {
-	return ft_strdup(remove_quotes(convert_all_args(str)));
+	return (ft_strdup(remove_quotes(convert_all_args(str))));
 }
 
 char	*convert_all_args(char *command)

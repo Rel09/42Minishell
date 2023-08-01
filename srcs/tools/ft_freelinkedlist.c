@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:06 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 21:35:38 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/31 19:46:59 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,9 @@ void	free_input(t_input *head)
 	{
 		next = current->next;
 		i = 0;
-		while (i < current->commands_len)
-		{
-			if (current->commands[i])
-				free(current->commands[i]);
-			i++;
-		}
+		while (current->commands[i])
+			free(current->commands[i++]);
+		free(current->commands);
 		free(current);
 		current = next;
 	}

@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:11 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 21:40:32 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/31 20:54:26 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_insert2darray(char ***dist, char **src, char *newstr)
 			exit(1);
 		}
 	}
-	new[i] = ft_strdup(newstr);
-	new[++i] = 0;
+	new[i++] = ft_strdup(newstr);
+	new[i] = 0;
 	*dist = new;
 }

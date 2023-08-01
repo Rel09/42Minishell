@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/31 01:52:54 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/31 01:52:55 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/31 21:41:49 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,39 +14,25 @@
 
 void	print_linkedlist(t_input *LL)
 {
-	//t_input	*temp = LL;
+	int	i;
+
 	while (LL)
 	{
-		for (int i = 0; LL->commands[i]; i++) {
-			printf("[%s] ", LL->commands[i]);
-		}
+		i = 0;
+		while (LL->commands[i])
+			printf("[%s] ", LL->commands[i++]);
 		printf("     STDIN:[%i]  STDOUT:[%i]\n", LL->_stdin, LL->_stdout);
 		LL = LL->next;
 	}
-
-	// Testing for Previous node
-	/*
-	while (temp && temp->next)
-		temp = temp->next;
-
-    while (temp)
-    {
-        for (int i = 0; temp->commands[i]; i++) {
-			printf("[%s] ", temp->commands[i]);
-		}
-		printf("     STDIN:[%i]  STDOUT:[%i]\n", temp->_stdin, temp->_stdout);
-		temp = temp->previous;
-    }
-	*/
-
 }
 
 int	main(int ac, char **av, char **env)
 {
-	(void)ac;
-	(void)av;
 	char	*input;
 	t_input	*linkedlist;
+
+	(void)ac;
+	(void)av;
 	init_env(env);
 	while (true)
 	{
@@ -60,10 +46,10 @@ int	main(int ac, char **av, char **env)
 		}
 		add_history(input);
 		linkedlist = parse_input(input);
-		print_linkedlist(linkedlist);		// temp
-		free_input(linkedlist);				// free
+		print_linkedlist(linkedlist);		// Print Linked list
+		free_input(linkedlist);				// Free Linked List
 	}
-	free_env();								// free
-	rl_clear_history();						// free
+	free_env();								// Free Env
+	rl_clear_history();
 	return (0);
 }

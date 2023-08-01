@@ -27,7 +27,6 @@ int	g_last_result;	// im not really using this but my expander calls it
 typedef struct s_input// Final Output
 {
 	char			**commands;
-	int				commands_len;	// this is ONLY for freeing
 	int				_stdin;
 	int				_stdout;
 	struct s_input	*previous;
@@ -58,7 +57,7 @@ void		find_and_remove(char *str);
 
 //		Add / Remove from Env
 void    	add_to_env(char *str);	// send ARG=WHATEVEREARUIASDFI
-void		rem_from_env(char *argname);// just the argname here
+void		rem_from_env(char *argname);// just the argname here (without =)
 
 // -----------
 
@@ -82,7 +81,7 @@ char		*ft_strncat(char *dest, char *src, int nb);
 int			ft_strncmp(char *s1, char *s2, unsigned int n);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
 
-// Strtoks - reading this may introduce stage 3 eyes cancer
+// Strtoks - SUPER cursed stuff
 char		*ft_strtok(char *str);
 void		strtok_two(char **stock);
 char    	*ft_strtok_monkas(char *str);
@@ -92,7 +91,6 @@ void		strtok_one(uint8_t *swtch, char **output, char *stock);
 void 		ft_strtokhelper2(uint8_t *swtch, uint8_t *quote, char **stock);
 void 		ft_strtokhelper3(char **output, uint8_t *quote, uint8_t *swtch);
 
-
 // 2D Array
 int 		ft_count2darray(char **s);
 void		ft_sort2darray(char ***strings);
@@ -100,5 +98,4 @@ void    	ft_copy2darray(char ***dist, char **src);
 bool    	ft_isin2darray(char **src, char *tofind);
 void    	ft_remove2darray(char ***dist, char **src, char *str);
 void    	ft_insert2darray(char ***dist, char **src, char *newstr);
-
 #endif

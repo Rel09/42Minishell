@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:35 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 21:52:48 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/07/31 21:20:10 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_remove2darray(char ***dist, char **src, char *str)
 	int		j;
 	char	**new;
 
-	new = malloc((ft_count2darray(src)) * sizeof(char *));
+	new = malloc((ft_count2darray(src) + 1) * sizeof(char *));
 	if (!new)
 	{
 		printf("Malloc error while making new Env\n");
