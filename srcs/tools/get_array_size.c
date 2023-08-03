@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   get_array_size.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 20:33:41 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/02 23:23:16 by pbergero         ###   ########.fr       */
+/*   Created: 2023/07/30 22:10:25 by pbergero          #+#    #+#             */
+/*   Updated: 2023/08/02 22:56:52 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	get_array_size(char	**array)
 {
-	if (!s1 || !s2)
-		return (-1);
-	while (*s1 && *s2)
+	int	i;
+
+	i = 0;
+	while (array[i])
 	{
-		if (*s1 < *s2)
-			return (-1);
-		if (*s1 > *s2)
-			return (1);
-		s1++;
-		s2++;
+		i++;
 	}
-	if (*s1 < *s2)
-		return (-1);
-	if (*s1 > *s2)
-		return (1);
-	return (0);
+	return (i);
 }

@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 20:33:41 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/02 23:23:16 by pbergero         ###   ########.fr       */
+/*   Created: 2022/10/18 15:34:09 by pbergero          #+#    #+#             */
+/*   Updated: 2023/08/02 22:35:31 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	if (!s1 || !s2)
-		return (-1);
-	while (*s1 && *s2)
+	size_t	j;
+	size_t	dlen;
+	size_t	slen;
+
+	if (!dst || !src)
+		return (0);
+	dlen = ft_strlen(dst);
+	slen = ft_strlen(src);
+	j = size;
+	while (*dst)
 	{
-		if (*s1 < *s2)
-			return (-1);
-		if (*s1 > *s2)
-			return (1);
-		s1++;
-		s2++;
+		dst++;
+		if (j > 0)
+			j--;
 	}
-	if (*s1 < *s2)
-		return (-1);
-	if (*s1 > *s2)
-		return (1);
-	return (0);
+	while (*src && j > 1)
+	{
+		*dst++ = *src++;
+		j--;
+	}
+	*dst = 0;
+	if (size > dlen)
+		return (dlen + slen);
+	return (slen + size);
 }

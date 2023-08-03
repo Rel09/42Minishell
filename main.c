@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/31 01:52:54 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/31 21:41:49 by dpotvin          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 
 void	print_linkedlist(t_input *LL)
@@ -26,30 +14,48 @@ void	print_linkedlist(t_input *LL)
 	}
 }
 
-int	main(int ac, char **av, char **env)
+bool	check_fd(t_input *input)
+{
+	while (input)
+	{
+		if (input->_stdin == -1 || input->_stdout == -1)
+		{
+			free_input(input);
+			return (false);
+		}
+		input = input->next;
+	}
+	return (true);
+}
+
+void	read_input(void)
 {
 	char	*input;
 	t_input	*linkedlist;
 
+	while (true)
+	{
+		input = readline("Minishell > ");
+		signal(SIGINT, sigint_running_shell);
+		if (!input)
+			ms_exit(NULL);
+		add_history(input);
+		linkedlist = parse_input(input);
+		if (!linkedlist)
+			continue ;
+		if (!check_fd(linkedlist))
+			continue ;
+		command_handler(linkedlist);
+		signal(SIGINT, sigint_interactive);
+	}
+}
+
+int	main(int ac, char **av, char **env)
+{
 	(void)ac;
 	(void)av;
 	init_env(env);
-	while (true)
-	{
-		printf(COLOR_KIRBY_PINK);
-		input = readline("Minishell > ");
-		printf(COLOR_RESET);
-		if (!input)
-		{
-			printf("Readline Input Error\n");
-			return (1);
-		}
-		add_history(input);
-		linkedlist = parse_input(input);
-		print_linkedlist(linkedlist);		// Print Linked list
-		free_input(linkedlist);				// Free Linked List
-	}
-	free_env();								// Free Env
-	rl_clear_history();
+	intercept_signals();
+	read_input();
 	return (0);
 }

@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ms_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 20:33:41 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/02 23:23:16 by pbergero         ###   ########.fr       */
+/*   Created: 2023/05/31 05:56:50 by dpotvin           #+#    #+#             */
+/*   Updated: 2023/08/02 23:00:35 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	ms_unset(char **args)
 {
-	if (!s1 || !s2)
-		return (-1);
-	while (*s1 && *s2)
-	{
-		if (*s1 < *s2)
-			return (-1);
-		if (*s1 > *s2)
-			return (1);
-		s1++;
-		s2++;
-	}
-	if (*s1 < *s2)
-		return (-1);
-	if (*s1 > *s2)
-		return (1);
-	return (0);
+	char	temp[500];
+
+	ft_bzero(temp, 500);
+	(void)args;
+	/*if (get_env_arg(temp))
+		remove_env_arg(temp);*/ //need to use our env
 }

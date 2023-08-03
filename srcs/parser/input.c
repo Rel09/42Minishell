@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:30 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/31 21:32:53 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/02 23:55:17 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	init_node(t_input *newNode, char *token)
 
 	i = 0;
 	len = count_strtok_monkas(token) + 1;
-	newNode->commands = malloc(len * sizeof(char *));
+	newNode->commands = ft_calloc(len, sizeof(char *));
 	newNode->_stdin = STDIN_FILENO;
 	newNode->_stdout = STDOUT_FILENO;
 	newNode->next = NULL;
@@ -65,7 +65,7 @@ t_input	*parse_input(char *input)
 	token = ft_strtok(input);
 	while (token)
 	{
-		newnode = malloc(sizeof(t_input));
+		newnode = ft_calloc(sizeof(t_input), 1);
 		if (!newnode)
 		{
 			printf("Malloc error while trying to add Node to LL\n");

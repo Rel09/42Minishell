@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/31 21:28:03 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/03 00:21:00 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	change_output(char *file, t_input *node, bool append)
 	if (append)
 		node->_stdout = open(file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else
-		node->_stdout = open(file, O_WRONLY | O_CREAT, 0644);
+		node->_stdout = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 }
 
 // Change Input and close it if its not the default one

@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   free_input.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 20:33:41 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/02 23:23:16 by pbergero         ###   ########.fr       */
+/*   Created: 2023/04/11 18:26:14 by pbergero          #+#    #+#             */
+/*   Updated: 2023/08/03 00:01:09 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+/*to free all the allocated memory for the input and  all next input linked*/
+void	free_input(t_input *input)
 {
-	if (!s1 || !s2)
-		return (-1);
-	while (*s1 && *s2)
+	if (!input)
+		return ;
+	while (input->previous)
 	{
-		if (*s1 < *s2)
-			return (-1);
-		if (*s1 > *s2)
-			return (1);
-		s1++;
-		s2++;
+		input = input->previous;
 	}
-	if (*s1 < *s2)
-		return (-1);
-	if (*s1 > *s2)
-		return (1);
-	return (0);
+	while (input)
+	{
+		close_redirection(input);
+		if (input->commands)
+			free_double_array((void **)input->commands);
+		free(input);
+		input = input->next;
+	}
 }

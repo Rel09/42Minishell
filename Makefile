@@ -1,7 +1,7 @@
 CC = gcc
 RM = rm -rf
 NAME = minishell
-FLAG = -Wall -Werror -Wextra
+FLAG = -Wall -Werror -Wextra 
 SPECIAL_FLAG = -L./readline -lreadline -lhistory -ltermcap
 
 # Source files
@@ -36,9 +36,32 @@ FILES := main.c \
 		srcs/tools/ft_count2darray.c \
 		srcs/tools/ft_insert2darray.c \
 		srcs/tools/ft_remove2darray.c \
-		srcs/tools/ft_freelinkedlist.c \
 		srcs/tools/ft_getvariablelen.c \
-		srcs/tools/ft_iscorrectenvname.c
+		srcs/tools/ft_iscorrectenvname.c \
+		srcs/tools/ft_split.c \
+		srcs/tools/ft_substr.c \
+		srcs/tools/ft_calloc.c \
+		srcs/tools/ft_strlcpy.c \
+		srcs/tools/ft_strlcat.c \
+		srcs/tools/str_is_int.c \
+		srcs/tools/ft_putstr_fd.c \
+		srcs/tools/get_array_size.c \
+		srcs/tools/ft_atoi.c \
+		srcs/tools/free_double_array.c \
+		srcs/execution/ms_cd.c \
+		srcs/execution/ms_exe.c \
+		srcs/execution/ms_pwd.c \
+		srcs/execution/ms_env.c \
+		srcs/execution/ms_exit.c \
+		srcs/execution/ms_unset.c \
+		srcs/execution/ms_echo.c \
+		srcs/execution/free_input.c \
+		srcs/execution/command_handler.c \
+		srcs/execution/ms_pipe.c \
+		srcs/execution/fd_list.c \
+		srcs/execution/pipe_utils.c \
+		srcs/execution/signal.c \
+
 
 # Object files
 OBJS_DIR := objs

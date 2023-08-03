@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/30 20:33:41 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/02 23:23:16 by pbergero         ###   ########.fr       */
+/*   Created: 2022/10/18 15:37:24 by pbergero          #+#    #+#             */
+/*   Updated: 2023/08/02 22:48:00 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	if (!s1 || !s2)
-		return (-1);
-	while (*s1 && *s2)
-	{
-		if (*s1 < *s2)
-			return (-1);
-		if (*s1 > *s2)
-			return (1);
-		s1++;
-		s2++;
-	}
-	if (*s1 < *s2)
-		return (-1);
-	if (*s1 > *s2)
-		return (1);
-	return (0);
+	char	*str;
+	size_t	size;
+	size_t	i;
+
+	size = ft_strlen(s);
+	i = 0;
+	if (start > size)
+		return (ft_strdup(""));
+	while (s[start + i] && i < len)
+		i++;
+	str = ft_calloc(i + 1, 1);
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, &s[start], i + 1);
+	return (str);
 }
