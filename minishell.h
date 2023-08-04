@@ -80,6 +80,7 @@ char		*find_and_return(char *str);
 // -----------
 
 // Tools
+int			is_long_long(const char *str);
 char		*ft_itoa(int n);
 bool		ft_isdigit(int c);
 bool		ft_isalpha(int c);
