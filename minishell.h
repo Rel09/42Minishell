@@ -11,6 +11,7 @@
 # define COLOR_WHITE     "\033[37m"
 # define COLOR_KIRBY_PINK "\033[38;5;218m"
 
+# include <limits.h>//									Long Long
 # include <stdbool.h>//									Bool
 # include <stdio.h>// 									Printf
 # include <unistd.h>//									GetCWD
@@ -107,6 +108,7 @@ int			ft_atoi(const char *nptr);
 int			is_str_int(const char *str);
 int			get_array_size(char	**array);
 void		ft_putstr_fd(char *s, int fd);
+long long 	ft_longlongatoi(const char *nptr);
 
 // Strtoks - SUPER cursed stuff
 char		*ft_strtok(char *str);
