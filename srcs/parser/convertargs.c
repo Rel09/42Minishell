@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:28 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/31 21:28:12 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 06:15:31 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ char	*convert_all_args(char *command)
 	int			data[3];
 	static char	newstr[2000];
 
-	ft_bzero(newstr, 2000);
 	ft_bzero(data, sizeof(data));
+	ft_bzero(newstr, 2000);
 	while (command[data[0]])
 	{
-		if (command[data[0]] == '\'' && !data[2])
-			data[2] = 1;
-		else if (command[data[0]] == '\'' && data[2])
+		if (ft_isquote(&command[data[0]]) && !data[2])
+			data[2] = command[data[0]];
+		else if (ft_isquote(&command[data[0]]) && data[2] == command[data[0]])
 			data[2] = 0;
-		if (!data[2] && ft_isvariable(&command[data[0]]))
+		if (data[2] != 39 && ft_isvariable(&command[data[0]]))
 		{
 			data[1] = ft_getvariablelen(&command[data[0]]);
 			var = ft_isvariable(&command[data[0]]);

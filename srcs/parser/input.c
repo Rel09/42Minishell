@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:30 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 01:01:05 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 06:17:30 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static void	init_node(t_input *newNode, char *token)
 	newNode->commands = ft_calloc(len, sizeof(char *));
 	newNode->_stdin = STDIN_FILENO;
 	newNode->_stdout = STDOUT_FILENO;
-	newNode->next = NULL;
-	newNode->previous = NULL;
 	commands = ft_strtok_monkas(token);
 	while (commands)
 	{
