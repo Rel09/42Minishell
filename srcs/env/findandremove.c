@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:46:34 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 03:44:22 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 05:12:45 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	find_and_remove(char *str)
 			return ;
 		}
 	}
-	printf("ERROR -> find_and_remove never found var with = in its name\n");
-	exit(1);
 }
 
 // Find and Return variable in Env

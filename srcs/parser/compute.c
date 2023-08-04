@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 01:34:53 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 05:13:45 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	change_output(char *file, t_input *node, bool append)
 {
 	char	*temp;
 
+	if (node->_stdout == -1)
+		return ;
 	temp = remove_quotes(file);
 	if (node->_stdout != STDOUT_FILENO)
 		close(node->_stdout);
@@ -34,6 +36,8 @@ static void	change_input(char *file, t_input *node)
 {
 	char	*temp;
 
+	if (node->_stdin == -1)
+		return ;
 	temp = remove_quotes(file);
 	if (node->_stdin != STDIN_FILENO)
 		close(node->_stdin);
