@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   str_is_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 20:59:02 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/02 22:56:47 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 06:50:18 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+bool	is_valid_longlong(const char *str)
+{
+	int			i;
+	int			sign;
+	long long	nbr;
+
+	if (!str)
+		return (false);
+	i = 0;
+	nbr = 0;
+	sign = 1;
+	if (!ft_strcmp(str, "-9223372036854775808"))
+		return (true);
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i++] == '-')
+			sign = -1;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		if (nbr > (LLONG_MAX - (str[i] - '0')) / 10)
+			return (false);
+		nbr = (nbr * 10) + (str[i++] - '0');
+	}
+	return (str[i] == 0);
+}
 
 int	is_str_int2(const char *str, int len)
 {

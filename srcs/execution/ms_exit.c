@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 18:25:08 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 06:19:08 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 06:50:45 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	clean_static_memory(void)
 
 static void	exit_process_argument(char *arg)
 {
-	if (is_long_long(arg))
+	if (is_valid_longlong(arg))
 	{
 		g_last_result = ft_longlongatoi(arg);
 	}

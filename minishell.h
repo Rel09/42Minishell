@@ -81,7 +81,7 @@ char		*find_and_return(char *str);
 // -----------
 
 // Tools
-int			is_long_long(const char *str);
+bool		is_valid_longlong(const char *str);
 char		*ft_itoa(int n);
 bool		ft_isdigit(int c);
 bool		ft_isalpha(int c);
@@ -107,6 +107,7 @@ size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 char		**ft_split(char const *s, char c);
 int			ft_atoi(const char *nptr);
 int			is_str_int(const char *str);
+bool		is_valid_longlong(const char *str);
 int			get_array_size(char	**array);
 void		ft_putstr_fd(char *s, int fd);
 long long 	ft_longlongatoi(const char *nptr);

@@ -2,3 +2,4 @@ minishell
 objs/
 .vscode/
 minishell.dSYM/
+minishell_tester/
