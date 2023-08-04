@@ -43,7 +43,7 @@ FILES := main.c \
 		srcs/tools/ft_calloc.c \
 		srcs/tools/ft_strlcpy.c \
 		srcs/tools/ft_strlcat.c \
-		srcs/tools/str_is_int.c \
+		srcs/tools/is_long_long.c \
 		srcs/tools/ft_putstr_fd.c \
 		srcs/tools/get_array_size.c \
 		srcs/tools/ft_atoi.c \
