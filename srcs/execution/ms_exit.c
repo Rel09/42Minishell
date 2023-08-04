@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 18:25:08 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 05:24:30 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 05:43:17 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	clean_static_memory(void)
 
 static void	exit_process_argument(char *arg)
 {
-	if (is_str_int(arg))
+	if (is_long_long(arg))
 	{
-		g_last_result = ft_atoi(arg);
+		g_last_result = ft_longlongatoi(arg);
 	}
 	else
 	{
@@ -48,8 +48,6 @@ static void	exit_process_argument(char *arg)
 		g_last_result = 255;
 	}
 }
-
-
 
 /*recreation of exit as a buitin for minishell*/
 /*closes the minishell program and free current input used to call it*/
