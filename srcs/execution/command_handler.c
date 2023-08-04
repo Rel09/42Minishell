@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:08:35 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/03 00:28:58 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 03:42:07 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ void	single_command_handler(t_input *input)
 		ms_env(input->commands);
 	else if (!ft_strcmp(input->commands[0], "unset"))
 		ms_unset(input->commands);
-	else 
+	else if (!ft_strcmp(input->commands[0], "export"))
+		ms_export(input->commands);
+	else 	
 		ms_exe(input);
 	save_std(CLOSE_OUT | RESTORE_OUT | CLOSE_IN | RESTORE_IN);
 }

@@ -1,7 +1,7 @@
 CC = gcc
 RM = rm -rf
 NAME = minishell
-FLAG = -Wall -Werror -Wextra 
+FLAG = 
 SPECIAL_FLAG = -L./readline -lreadline -lhistory -ltermcap
 
 # Source files
@@ -57,6 +57,7 @@ FILES := main.c \
 		srcs/execution/ms_echo.c \
 		srcs/execution/free_input.c \
 		srcs/execution/command_handler.c \
+		srcs/execution/ms_export.c \
 		srcs/execution/ms_pipe.c \
 		srcs/execution/fd_list.c \
 		srcs/execution/pipe_utils.c \

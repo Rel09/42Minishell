@@ -3,70 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 19:09:08 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/02 22:36:49 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:13:01 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-// Function that add a new entry in Env. Str is the value, 
-// =and Prefix is the value name
-// strlcat_addtoenv("\PATH\TO\HEAVEN", "JESUSPATH=");
 
 void	perror_global(char *str)
 {
 	perror(str);
 	g_last_result = EXIT_FAILURE;
 }
-/*
-static void	strlcat_addtoenv(const char *str, const char *prefix)
-{
-	char	*temp;
 
-	temp = malloc(ft_strlen(str) + ft_strlen(prefix) + 1);
-	if (!temp)
-	{
-		perror_global("Malloc error [ ms_cd.c -> strlcat_addtoenv 0]");
-		return ;
-	}
-	ft_bzero(temp, ft_strlen(str) + ft_strlen(prefix));
-	ft_strlcat(temp, prefix, ft_strlen(prefix) + 1);
-	ft_strlcat(temp, str, ft_strlen(str) + ft_strlen(prefix) + 1);
-	add_env_arg(temp);
-	free(temp);
-}
-
-// Update ENV path after changing folder
+// Update the OLDPWD and PWD in env
+// Add_to_env automaticly overwrite the last value in ENV
 static void	update_env_path(void)
 {
 	char	*oldpwd;
-	char	*buffer;
+	char	buffer2[1000];
+	char	buffer[1000];
 
-	oldpwd = get_env_arg("OLDPWD=");
-	if (oldpwd)
-		remove_env_arg("OLDPWD=");
-	oldpwd = get_env_arg("PWD=");
+	oldpwd = find_and_return("PWD=");
 	if (oldpwd)
 	{
-		strlcat_addtoenv(oldpwd + 4, "OLDPWD=");
-		buffer = malloc(1024);
-		if (!buffer)
-		{
-			perror_global("Malloc error [ ms_cd.c -> update_env_path 0]");
-			return ;
-		}
-		remove_env_arg("PWD=");
-		getcwd(buffer, 1024);
-		strlcat_addtoenv(buffer, "PWD=");
-		free(buffer);
+		ft_bzero(buffer, 1000);
+		ft_strlcat(buffer, "OLDPWD=", 8);
+		ft_strlcat(buffer, oldpwd, ft_strlen(oldpwd) + 8);
+		add_to_env(buffer);
+		ft_bzero(buffer, 1000);
+		getcwd(buffer2, 1000);
+		ft_strlcat(buffer, "PWD=", 5);
+		ft_strlcat(buffer, buffer2, ft_strlen(buffer2) + 5);
+		add_to_env(buffer);
 	}
 	else
 		perror_global("No [PWD=] ? ms_cd -> update_env_path()");
 }
-*/
 
 /*recreation of cd as a buitin for minishell*/
 /*change current directory for the specified one in the input.arg*/
@@ -84,5 +59,5 @@ void	ms_cd(char **args)
 		perror_global("cd:");
 		return ;
 	}
-	//update_env_path(); need to redo that part with the new env 
+	update_env_path();
 }

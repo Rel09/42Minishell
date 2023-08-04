@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 23:00:32 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/02 22:53:47 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:07:03 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,5 @@ void	ms_env(char **args)
 	char	**env;
 
 	(void)args;
-	g_last_result = 0;
-	env = *get_env(); //replace with our env
-	sort_strings(&env);
-	while (*env)
-	{
-		printf("%s\n",*env);
-		env++;
-	}
+	show_env();
 }

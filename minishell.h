@@ -29,6 +29,8 @@ typedef struct s_input// Final Output
 	char			**commands;
 	int				_stdin;
 	int				_stdout;
+	char			*_stdinname;
+	char			*_stdoutname;
 	struct s_input	*previous;
 	struct s_input	*next;
 }	t_input;
@@ -61,9 +63,8 @@ void		compute_node(char *command, t_input *node, int *index);
 // --- ENV ---
 
 //		Display Env
-void		show_env(void);				// env
+void		show_env(void);			// env
 void		show_env_export(void);	// export
-char		*find_and_return(char *str);
 
 //		Env
 char		***get_env(void);
@@ -74,25 +75,26 @@ void		find_and_remove(char *str);
 //		Add / Remove from Env
 void		add_to_env(char *str);	// send ARG=WHATEVEREARUIASDFI
 void		rem_from_env(char *argname);// just the argname here (without =)
+char		*find_and_return(char *str);// Return the value
 
 // -----------
 
 // Tools
-char		*ft_itoa(int n);	// this NEED to malloc (im freeing it)
+char		*ft_itoa(int n);
 bool		ft_isdigit(int c);
 bool		ft_isalpha(int c);
 bool		ft_isspace(char c);
-bool		ft_isredir(char *str);	//new
-uint8_t		ft_isquote(char	*str);	//new
+bool		ft_isredir(char *str);
+uint8_t		ft_isquote(char	*str);
 char		*ft_strdup(char *src);
-char		*ft_isvariable(char *str);	//new
+char		*ft_isvariable(char *str);
 size_t		ft_strlen(const char *s);
 void		ft_bzero(void *s, size_t n);
 int			ft_getvariablelen(char *str);
 int			ft_strcmp(const char *s1, const char *s2);
-bool		ft_iscorrectenvname(char *str);	//new
+bool		ft_iscorrectenvname(char *str);
 char		*ft_strcpy(char *dest, char *src);
-char		*ft_charncat(char *dest, char c, size_t n);	//new
+char		*ft_charncat(char *dest, char c, size_t n);
 char		*ft_strncat(char *dest, char *src, int nb);
 int			ft_strncmp(char *s1, char *s2, unsigned int n);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
@@ -125,12 +127,10 @@ void		ft_remove2darray(char ***dist, char **src, char *str);
 void		ft_insert2darray(char ***dist, char **src, char *newstr);
 
 // execution
+void		ms_export(char **args);
 int			intercept_signals(void);
-void		here_doc_sighandler(int sig);
 void		sigint_interactive(int sig);
 void		sigint_running_shell(int sig);
-bool		sig_received(int receiving_sig);
-
 void		ms_pipes(t_input *input, t_fd_chain *fd_chain);
 t_fd_chain	*open_new_pipe(t_fd_chain *fd_chain);
 t_fd_chain	*close_fd_chain(t_fd_chain *fd_chain);
@@ -144,7 +144,6 @@ void		close_other_redirection_pipe_fd(t_input *input);
 void		close_redirection(t_input *input);
 void		ms_unset(char **args);
 void		ms_pwd(char **args);
-bool		accesschanged(int fd);
 void		ms_cd(char **args);
 void		ms_exe(t_input *input);
 void		ms_exit(t_input *input);

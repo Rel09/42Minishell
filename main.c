@@ -14,12 +14,46 @@ void	print_linkedlist(t_input *LL)
 	}
 }
 
+bool	argschecker(t_input *LL, char *input)
+{
+	int	i;
+
+	while (LL)
+	{
+		if (!LL->commands)
+		{
+			ft_putstr_fd("Minishell: syntax error near unexpected token\n", STDERR_FILENO);
+			return (false);
+		}
+		LL = LL->next;
+	}
+	i = 0;
+	while (ft_isspace(input[i]))
+		i++;
+	if (input[i] == '|')
+	{
+		ft_putstr_fd("Minishell: syntax error near unexpected token\n", STDERR_FILENO);
+		return (false);
+	}
+	return (true);
+}
+
 bool	check_fd(t_input *input)
 {
 	while (input)
 	{
 		if (input->_stdin == -1 || input->_stdout == -1)
 		{
+			if (input->_stdin == -1)
+			{
+				ft_putstr_fd("Minishell: ", STDERR_FILENO);
+				perror_global(input->_stdinname);
+			}
+			if (input->_stdout == -1)
+			{
+				ft_putstr_fd("Minishell: ", STDERR_FILENO);
+				perror_global(input->_stdoutname);
+			}
 			free_input(input);
 			return (false);
 		}
@@ -35,18 +69,21 @@ void	read_input(void)
 
 	while (true)
 	{
+		printf(COLOR_KIRBY_PINK);
 		input = readline("Minishell > ");
+		printf(COLOR_RESET);
 		signal(SIGINT, sigint_running_shell);
 		if (!input)
 			ms_exit(NULL);
 		add_history(input);
 		linkedlist = parse_input(input);
-		if (!linkedlist)
-			continue ;
-		if (!check_fd(linkedlist))
+		print_linkedlist(linkedlist);
+		if (!linkedlist || !check_fd(linkedlist)
+			|| !argschecker(linkedlist, input))
 			continue ;
 		command_handler(linkedlist);
 		signal(SIGINT, sigint_interactive);
+		free(input);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:46:34 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/31 21:24:40 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 03:44:22 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,5 @@ void	rem_from_env(char *argname)
 	ft_strncat(name, argname, ft_strlen(argname));
 	ft_charncat(name, '=', 1);
 	find_and_remove(name);
+	g_last_result = EXIT_SUCCESS;
 }

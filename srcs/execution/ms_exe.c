@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:24:02 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/03 00:09:25 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:12:41 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*get_env_path(void)
 {
 	char	*str;
 
-	str = getenv("PATH"); // need to change for the new env
+	str = find_and_return("PATH=");
 	return (str);
 }
 
@@ -72,11 +72,11 @@ static void	exe_command(char **args)
 	save_std(CLOSE_IN | CLOSE_OUT);
 	path = args[0];
 	if (access(path, F_OK | X_OK))
-		execve(path, args, NULL); //change the NULL for getenv
+		execve(path, args, *get_env());
 	path = search_exe_in_path_env(args);
 	if (path)
 	{
-		execve(path, args, NULL); //change the NULL for getenv
+		execve(path, args, *get_env());
 		free(path);
 	}
 }

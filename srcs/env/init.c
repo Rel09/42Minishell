@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:46:37 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/31 21:26:58 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 03:43:35 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,15 @@ void	add_to_env(char *str)
 		ft_sort2darray(&newenv);
 		free_env();
 		*get_env() = newenv;
+		g_last_result = EXIT_SUCCESS;
 	}
 	else
-		printf("Export -> Invalid ARG Identifier\n");
+	{
+		ft_putstr_fd("Minishell: export:", STDERR_FILENO);
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putstr_fd(" : not a valid identifier\n", STDERR_FILENO);
+		g_last_result = EXIT_FAILURE;
+	}
 }
 
 // Free the env

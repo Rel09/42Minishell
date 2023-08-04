@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 18:25:08 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/02 23:32:29 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 00:11:29 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	clean_static_memory(void)
 {
 	rl_clear_history();
-	//need to clean env
+	free_env();
 }
 
 static void	exit_process_argument(char *arg)
@@ -40,7 +40,6 @@ static void	exit_process_argument(char *arg)
 /*closes the minishell program and free current input used to call it*/
 void	ms_exit(t_input *input)
 {
-	//ft_putstr_fd("exit\n", 2);
 	if (!input || get_array_size(input->commands) == 1)
 	{
 		clean_static_memory();
