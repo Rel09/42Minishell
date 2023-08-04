@@ -73,9 +73,9 @@ void		init_env(char **env);
 void		find_and_remove(char *str);
 
 //		Add / Remove from Env
-void		add_to_env(char *str);	// send ARG=WHATEVEREARUIASDFI
-void		rem_from_env(char *argname);// just the argname here (without =)
-char		*find_and_return(char *str);// Return the value
+void		add_to_env(char *str);
+void		rem_from_env(char *argname);
+char		*find_and_return(char *str);
 
 // -----------
 

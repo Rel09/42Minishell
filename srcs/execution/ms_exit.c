@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 18:25:08 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 03:48:17 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 03:52:34 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	clean_static_memory(void)
 	rl_clear_history();
 	free_env();
 	save_std(CLOSE_IN | CLOSE_OUT);
-	//need to clean env
 }
 
 static void	exit_process_argument(char *arg)

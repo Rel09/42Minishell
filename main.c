@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
+/*   Updated: 2023/08/04 03:54:58 by dpotvin          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	print_linkedlist(t_input *LL)
@@ -6,7 +18,7 @@ void	print_linkedlist(t_input *LL)
 
 	if (!LL)
 	{
-		printf("%p\n",LL);
+		printf("%p\n", LL);
 		return ;
 	}
 	while (LL)
@@ -27,7 +39,8 @@ bool	argschecker(t_input *LL, char *input)
 	{
 		if (!LL->commands)
 		{
-			ft_putstr_fd("Minishell: syntax error near unexpected token\n", STDERR_FILENO);
+			ft_putstr_fd("Minishell: syntax error \
+			near unexpected token\n", STDERR_FILENO);
 			return (false);
 		}
 		LL = LL->next;
@@ -37,7 +50,8 @@ bool	argschecker(t_input *LL, char *input)
 		i++;
 	if (input[i] == '|')
 	{
-		ft_putstr_fd("Minishell: syntax error near unexpected token\n", STDERR_FILENO);
+		ft_putstr_fd("Minishell: syntax \
+		error near unexpected token\n", STDERR_FILENO);
 		return (false);
 	}
 	return (true);
@@ -74,9 +88,7 @@ void	read_input(void)
 
 	while (true)
 	{
-		printf(COLOR_KIRBY_PINK);
 		input = readline("Minishell > ");
-		printf(COLOR_RESET);
 		signal(SIGINT, sigint_running_shell);
 		if (!input)
 			ms_exit(NULL);

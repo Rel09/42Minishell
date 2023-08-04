@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:08:35 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 03:47:21 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 03:52:44 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	single_command_handler(t_input *input)
 		ms_unset(input->commands);
 	else if (!ft_strcmp(input->commands[0], "export"))
 		ms_export(input->commands);
-	else 	
+	else
 		ms_exe(input);
 }
 
