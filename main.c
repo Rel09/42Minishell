@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 03:57:16 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 04:54:32 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	read_input(void)
 		command_handler(linkedlist);
 		signal(SIGINT, sigint_interactive);
 		free(input);
+		free_input(linkedlist);
 	}
 }
 

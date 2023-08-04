@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:08:35 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 03:52:44 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 04:54:08 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,5 @@ void	command_handler(t_input *input)
 		single_command_handler(input);
 	else
 		ms_pipes(input, NULL);
-	free_input(input);
 	save_std(RESTORE_OUT | RESTORE_IN);
 }
