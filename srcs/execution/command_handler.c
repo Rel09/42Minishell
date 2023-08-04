@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 16:08:35 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 04:54:08 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 07:02:56 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static int	input_redirection(t_input *input)
 
 static int	redirection_handler(t_input *input)
 {
+	if (!check_fd(input))
+		return (EXIT_FAILURE);
 	if (input_redirection(input))
 		return (EXIT_FAILURE);
 	if (output_redirection(input))

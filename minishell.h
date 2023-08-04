@@ -110,7 +110,8 @@ int			is_str_int(const char *str);
 bool		is_valid_longlong(const char *str);
 int			get_array_size(char	**array);
 void		ft_putstr_fd(char *s, int fd);
-long long 	ft_longlongatoi(const char *nptr);
+long long	ft_longlongatoi(const char *nptr);
+bool		check_fd(t_input *input);
 
 // Strtoks - SUPER cursed stuff
 char		*ft_strtok(char *str);

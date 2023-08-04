@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 04:54:32 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 07:03:11 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,22 @@ bool	argschecker(t_input *LL, char *input)
 
 bool	check_fd(t_input *input)
 {
-	while (input)
+	if (input->_stdin == -1 || input->_stdout == -1)
 	{
-		if (input->_stdin == -1 || input->_stdout == -1)
+		if (input->_stdin == -1)
 		{
-			if (input->_stdin == -1)
-			{
-				ft_putstr_fd("Minishell: ", STDERR_FILENO);
-				perror_global(input->_stdinname);
-			}
-			if (input->_stdout == -1)
-			{
-				ft_putstr_fd("Minishell: ", STDERR_FILENO);
-				perror_global(input->_stdoutname);
-			}
-			free_input(input);
-			return (false);
+			open(input->_stdinname, O_RDONLY);
+			ft_putstr_fd("Minishell: ", STDERR_FILENO);
+			perror_global(input->_stdinname);
 		}
-		input = input->next;
+		if (input->_stdout == -1)
+		{
+			ft_putstr_fd("Minishell: ", STDERR_FILENO);
+			perror_global(input->_stdoutname);
+		}
+		return (false);
 	}
+
 	return (true);
 }
 
@@ -94,8 +91,7 @@ void	read_input(void)
 			ms_exit(NULL);
 		add_history(input);
 		linkedlist = parse_input(input);
-		if (!linkedlist || !check_fd(linkedlist)
-			|| !argschecker(linkedlist, input))
+		if (!linkedlist || !argschecker(linkedlist, input))
 			continue ;
 		command_handler(linkedlist);
 		signal(SIGINT, sigint_interactive);
