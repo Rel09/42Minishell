@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:46:39 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/31 21:27:15 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 05:04:44 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ void	show_env_export(void)
 		}
 		printf("\"\n");
 	}
+	g_last_result = EXIT_SUCCESS;
 }
