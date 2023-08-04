@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:24:02 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 03:48:21 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 04:43:41 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,8 @@ void	ms_exe(t_input *input)
 		exit (g_last_result);
 	}
 	else
+	{
 		waitpid(pid, &g_last_result, 0);
+		convert_exit();
+	}
 }

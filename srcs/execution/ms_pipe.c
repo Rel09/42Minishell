@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:35:43 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 03:04:32 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 04:44:03 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ static void	last_command(t_input *input, t_fd_chain *fd_chain)
 	}
 	wait_for_my_child(fd_chain);
 	waitpid(pid, &g_last_result, 0);
+	convert_exit();
 }
 
 /*recreation of the pipe ' | ' for the minishell project */

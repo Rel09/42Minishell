@@ -154,4 +154,5 @@ void		ms_env(char **args);
 void		perror_global(char *str);
 void		clean_static_memory(void);
 void		*ft_calloc(size_t nitems, size_t size);
+void		convert_exit(void);
 #endif

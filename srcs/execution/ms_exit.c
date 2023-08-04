@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 18:25:08 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 03:52:34 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 04:42:44 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 
 void	convert_exit(void)
 {
+	if (WIFEXITED(g_last_result))
+	{
+		g_last_result = WEXITSTATUS(g_last_result);
+	}
+	else if (WIFSIGNALED(g_last_result))
+	{
+		g_last_result = WTERMSIG(g_last_result) + 128;
+	}
 }
 
 /*free what needs to be freed in here when an error occors*/
