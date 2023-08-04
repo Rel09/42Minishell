@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:35:43 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/02 22:31:32 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 03:04:32 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	wait_for_my_child(t_fd_chain *fd_chain)
 {
 	while (fd_chain)
 	{
-		waitpid(fd_chain->pid, &g_last_result, 0);
+		waitpid(fd_chain->pid, NULL, 0);
 		fd_chain = fd_chain->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 17:30:28 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/03 00:27:58 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 01:16:36 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,13 @@ void	save_std(int option)
 	static int	save_stdout = -1;
 
 	if ((option & SAVE_IN) && save_stdin == -1)
-	{
 		save_stdin = dup(STDIN_FILENO);
-	}
 	if ((option & SAVE_OUT) && save_stdout == -1)
-	{
 		save_stdout = dup(STDOUT_FILENO);
-	}
 	if (option & RESTORE_IN && save_stdin != -1)
+	{
 		dup2(save_stdin, STDIN_FILENO);
+	}
 	if (option & RESTORE_OUT && save_stdout != -1)
 		dup2(save_stdout, STDOUT_FILENO);
 	if (option & CLOSE_IN && save_stdin != -1)

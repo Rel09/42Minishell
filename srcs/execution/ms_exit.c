@@ -6,11 +6,15 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 18:25:08 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/02 23:32:29 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/04 01:52:21 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+void	convert_exit(void)
+{
+}
 
 /*free what needs to be freed in here when an error occors*/
 //	unlink_path(NULL);
@@ -18,6 +22,7 @@
 void	clean_static_memory(void)
 {
 	rl_clear_history();
+	save_std(CLOSE_IN | CLOSE_OUT);
 	//need to clean env
 }
 

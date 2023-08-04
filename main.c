@@ -4,6 +4,11 @@ void	print_linkedlist(t_input *LL)
 {
 	int	i;
 
+	if (!LL)
+	{
+		printf("%p\n",LL);
+		return ;
+	}
 	while (LL)
 	{
 		i = 0;
@@ -41,6 +46,7 @@ void	read_input(void)
 			ms_exit(NULL);
 		add_history(input);
 		linkedlist = parse_input(input);
+		//print_linkedlist(linkedlist);
 		if (!linkedlist)
 			continue ;
 		if (!check_fd(linkedlist))
@@ -56,6 +62,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_env(env);
 	intercept_signals();
+	save_std(SAVE_IN | SAVE_OUT);
 	read_input();
 	return (0);
 }
