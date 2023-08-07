@@ -6,16 +6,11 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:28 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 06:15:31 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/06 22:41:36 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-char	*convert_all_the_shit_and_malloc(char *str)
-{
-	return (ft_strdup(remove_quotes(convert_all_args(str))));
-}
 
 char	*convert_all_args(char *command)
 {

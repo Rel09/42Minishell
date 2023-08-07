@@ -1,16 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define COLOR_RESET	 "\033[0m"
-# define COLOR_RED       "\033[31m"
-# define COLOR_GREEN     "\033[32m"
-# define COLOR_BLUE      "\033[34m"
-# define COLOR_YELLOW    "\033[33m"
-# define COLOR_MAGENTA   "\033[35m"
-# define COLOR_CYAN      "\033[36m"
-# define COLOR_WHITE     "\033[37m"
-# define COLOR_KIRBY_PINK "\033[38;5;218m"
-
 # include <limits.h>//									Long Long
 # include <stdbool.h>//									Bool
 # include <stdio.h>// 									Printf
@@ -68,7 +58,6 @@ void		free_input(t_input *head);
 t_input		*parse_input(char *input);
 char		*remove_quotes(char	*str);
 char		*convert_all_args(char *command);
-char		*convert_all_the_shit_and_malloc(char *str);
 void		compute_node(char *command, t_input *node, int *index);
 
 // --- ENV ---

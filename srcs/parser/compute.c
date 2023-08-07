@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 05:13:45 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/06 22:59:51 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	change_output(char *file, t_input *node, bool append)
 {
 	char	*temp;
 
-	if (node->_stdout == -1)
+	if (node->_stdout == -1 || node->_stdin == -1)
 		return ;
 	temp = remove_quotes(file);
 	if (node->_stdout != STDOUT_FILENO)
@@ -36,7 +36,7 @@ static void	change_input(char *file, t_input *node)
 {
 	char	*temp;
 
-	if (node->_stdin == -1)
+	if (node->_stdout == -1 || node->_stdin == -1)
 		return ;
 	temp = remove_quotes(file);
 	if (node->_stdin != STDIN_FILENO)
@@ -63,8 +63,14 @@ static void	do_redirect(char *type, char *file, t_input *node)
 // Backend for the Redirection and pretty much all
 void	compute_node(char *command, t_input *node, int *index)
 {
+	char	*arg;
+
 	if (ft_isredir(command))
 		do_redirect(command, ft_strtok_monkas(0), node);
 	else
-		node->commands[(*index)++] = convert_all_the_shit_and_malloc(command);
+	{
+		arg = convert_all_args(command);
+		if (*arg != 0)
+			node->commands[(*index)++] = ft_strdup(remove_quotes(arg));
+	}
 }
