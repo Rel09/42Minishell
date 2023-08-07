@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:24:02 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/06 22:10:40 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/06 22:58:33 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,10 @@ static void	exe_command(char **args)
 
 	save_std(CLOSE_IN | CLOSE_OUT);
 	path = args[0];
+	g_last_result = COMMAND_NOT_FOUND_EXIT;
+	file_type = get_file_type(path); 
 	if (access(path, F_OK | X_OK))
 	{
-		file_type = get_file_type(path); 
 		if (file_type == EXE)
 			execve(path, args, *get_env());
 	}
@@ -86,8 +87,6 @@ static void	exe_command(char **args)
 			execve(path, args, *get_env());
 		free(path);
 	}
-	else
-		g_last_result = COMMAND_NOT_FOUND_EXIT;
 }
 
 /*Execute a exe by vertue of fork.*/
@@ -96,6 +95,8 @@ void	ms_exe(t_input *input)
 {
 	int		pid;
 
+	if (input->commands[0] == 0)
+		return ;
 	pid = fork();
 	if (pid < 0)
 	{
