@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:24:02 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 04:43:41 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/06 22:10:40 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,26 @@ static char	*search_exe_in_path_env(char **args)
 static void	exe_command(char **args)
 {
 	char	*path;
+	int		file_type;
 
 	save_std(CLOSE_IN | CLOSE_OUT);
 	path = args[0];
 	if (access(path, F_OK | X_OK))
-		execve(path, args, *get_env());
+	{
+		file_type = get_file_type(path); 
+		if (file_type == EXE)
+			execve(path, args, *get_env());
+	}
 	path = search_exe_in_path_env(args);
 	if (path)
 	{
-		execve(path, args, *get_env());
+		file_type = get_file_type(path); 
+		if (file_type == EXE)
+			execve(path, args, *get_env());
 		free(path);
 	}
+	else
+		g_last_result = COMMAND_NOT_FOUND_EXIT;
 }
 
 /*Execute a exe by vertue of fork.*/
@@ -97,7 +106,8 @@ void	ms_exe(t_input *input)
 	{
 		signal(SIGINT, SIG_DFL);
 		exe_command(input->commands);
-		perror_global("exe");
+		perror("exe");
+		free_input(input);
 		clean_static_memory();
 		exit (g_last_result);
 	}

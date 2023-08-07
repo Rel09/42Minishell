@@ -53,6 +53,16 @@ enum e_std_save
 	RESTORE_OUT = 1 << 5
 };
 
+enum e_file_type
+{
+	EXE,
+	DIR,
+	NORMAL_FILE
+};
+
+# define COMMAND_NOT_FOUND_EXIT 127
+# define IS_DIR_EXIT 126
+
 // Parsing
 void		free_input(t_input *head);
 t_input		*parse_input(char *input);
@@ -160,4 +170,6 @@ void		perror_global(char *str);
 void		clean_static_memory(void);
 void		*ft_calloc(size_t nitems, size_t size);
 void		convert_exit(void);
+int			get_file_type(char *path);
+
 #endif

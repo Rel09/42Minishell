@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 05:56:50 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 00:10:45 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/04 23:17:44 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

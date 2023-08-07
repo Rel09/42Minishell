@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:35:43 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 04:44:03 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:14:08 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,16 @@
 static void	dup_fd_chain_child(t_fd_chain *fd_chain, t_input *input,
 	t_fd_chain *fd_head, t_input *input_head)
 {
-	int	fd;
-
-	fd = 0;
-	close(fd_chain->fd[0]);
+	if (input->previous)
+	{
+		dup2(fd_chain->previous->fd[0], STDIN_FILENO);
+		close(fd_chain->previous->fd[0]);
+	}
 	dup2(fd_chain->fd[1], STDOUT_FILENO);
 	close(fd_chain->fd[1]);
 	save_std(CLOSE_IN | CLOSE_OUT);
-	close_unused_fd(fd_chain->next);
-	if (fd == -1)
-		pipeline_error_cleaning (input_head, fd_head, NULL, true);
+	close_unused_fd(fd_chain);
 	single_command_handler(input);
-	if (fd > 0)
-	{
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
-	}
 	pipeline_error_cleaning (input_head, fd_head, NULL, true);
 }
 
@@ -55,9 +49,6 @@ static int	dup_fd_chain(t_fd_chain *fd_chain, t_input *input,
 		signal(SIGINT, SIG_DFL);
 		dup_fd_chain_child(fd_chain, input, fd_chain, input_head);
 	}
-	close(fd_chain->fd[1]);
-	dup2(fd_chain->fd[0], STDIN_FILENO);
-	close(fd_chain->fd[0]);
 	return (dup_fd_chain(fd_chain->next, input->next, fd_head, input_head));
 }
 
@@ -68,6 +59,19 @@ static void	wait_for_my_child(t_fd_chain *fd_chain)
 		waitpid(fd_chain->pid, NULL, 0);
 		fd_chain = fd_chain->next;
 	}
+}
+
+static void	dup_last_fd(t_fd_chain *fd_chain)
+{
+	while (fd_chain->next)
+	{
+		close(fd_chain->fd[1]);
+		close(fd_chain->fd[0]);
+		fd_chain = fd_chain->next;
+	}
+	close(fd_chain->fd[1]);
+	dup2(fd_chain->fd[0], STDIN_FILENO);
+	close(fd_chain->fd[0]);
 }
 
 static void	last_command(t_input *input, t_fd_chain *fd_chain)
@@ -87,10 +91,12 @@ static void	last_command(t_input *input, t_fd_chain *fd_chain)
 		head = input;
 		while (input->next)
 			input = input->next;
+		dup_last_fd(fd_chain);
 		save_std(CLOSE_IN | CLOSE_OUT);
 		single_command_handler(input);
 		pipeline_error_cleaning(head, NULL, NULL, true);
 	}
+	close_fd_chain(fd_chain);
 	wait_for_my_child(fd_chain);
 	waitpid(pid, &g_last_result, 0);
 	convert_exit();
@@ -117,7 +123,6 @@ void	ms_pipes(t_input *input, t_fd_chain *fd_chain)
 	}
 	if (dup_fd_chain(fd_chain, input, fd_chain, input))
 		return ;
-	close_fd_chain(fd_chain);
 	last_command(input, fd_chain);
 	free_fd_chain(fd_chain);
 	save_std(CLOSE_IN | CLOSE_OUT | RESTORE_IN | RESTORE_OUT);

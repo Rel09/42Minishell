@@ -63,7 +63,6 @@ FILES := main.c \
 		srcs/execution/pipe_utils.c \
 		srcs/execution/signal.c \
 
-
 # Object files
 OBJS_DIR := objs
 OBJS := $(addprefix $(OBJS_DIR)/, $(FILES:.c=.o))

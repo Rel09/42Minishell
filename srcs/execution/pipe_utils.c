@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 17:30:28 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 01:16:36 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/06 19:34:57 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	close_unused_fd(t_fd_chain *fd_chain)
 {
 	if (!fd_chain)
 		return ;
+	while (fd_chain->previous)
+		fd_chain = fd_chain->previous;
 	while (fd_chain)
 	{
 		close(fd_chain->fd[0]);
