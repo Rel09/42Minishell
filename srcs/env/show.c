@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:46:39 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 05:04:44 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/07 00:18:49 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	show_env(void)
 	i = -1;
 	e = *get_env();
 	while (e[++i])
-		printf("%s\n", e[i]);
+	{
+		if (strncmp(e[i], "OLDPWD=", ft_strlen("OLDPWD=")))
+			printf("%s\n", e[i]);
+	}
 }
 
 void	show_env_export(void)
@@ -34,6 +37,11 @@ void	show_env_export(void)
 	while (t[++i])
 	{
 		printf("declare -x ");
+		if (!strcmp(t[i], "OLDPWD="))
+		{
+			printf("OLDPWD\n");
+			continue ;
+		}
 		j = -1;
 		while (t[i][++j])
 		{

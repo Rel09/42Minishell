@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:46:37 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 03:43:35 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/07 00:09:36 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_env(char **env)
 	ft_copy2darray(&e, env);
 	ft_sort2darray(&e);
 	*get_env() = e;
+	add_to_env("OLDPWD=");
 }
 
 // Add element to env

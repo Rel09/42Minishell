@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/06 22:42:54 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/07 00:18:03 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ bool	check_fd(t_input *input)
 		}
 		return (false);
 	}
-
 	return (true);
 }
 
