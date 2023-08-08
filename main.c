@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 05:33:16 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 06:25:03 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_env(env);
 	intercept_signals();
-	save_std(SAVE_IN | SAVE_OUT);	// make leaks says theres fd open here? unsure
+	save_std(SAVE_IN | SAVE_OUT);	// leaks ?
 	read_input();
 	return (0);
 }

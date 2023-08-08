@@ -73,9 +73,10 @@ OBJS := $(addprefix $(OBJS_DIR)/, $(FILES:.c=.o))
 
 CYAN="\033[1;36m"
 GREEN="\033[1;32m"
+BLACKBCK="\033[40m"
 ENDCOLOR="\033[0m"
-CLEANING := $(GREEN)[+] Cleaning Completed$(ENDCOLOR)
-SUCCESS := $(GREEN)[+] $(NAME) Successfully Compiled!$(ENDCOLOR)
+CLEANING := $(BLACKBCK)$(GREEN)[+] Cleaning Completed$(ENDCOLOR)
+SUCCESS := $(BLACKBCK)$(GREEN)[+] $(NAME) Successfully Compiled!$(ENDCOLOR)
 
 #---------------------------  Compilation Main ---------------------------
 
@@ -88,7 +89,7 @@ $(OBJS_DIR):
 # Compile source files into object files
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 	@$(CC) $(FLAG) -c $< -o $@
-	@echo $(CYAN)[-] Compiling: $@$(ENDCOLOR)
+	@echo $(BLACKBCK)$(CYAN)[-] Compiling: $@$(ENDCOLOR)
 
 # Build the final executable
 $(NAME): $(OBJS)
