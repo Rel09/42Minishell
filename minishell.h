@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 00:17:32 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 05:15:51 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 07:01:55 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void		change_input(char *file, t_input *node);
 void		compute_node(char *command, t_input *node, int *index);
 
 // Heredoc
+bool		*heredoc_broken(void);
 int			*heredoc_pid(void);
 char		*get_uniquefilename(void);
 void		delete_heredocs_files(void);
@@ -85,7 +86,6 @@ char		*convert_all_args_hd(char *command);
 void		heredoc(char *keyword, t_input *node);
 
 // Env
-
 void		show_env(void);
 void		show_env_export(void);
 char		***get_env(void);

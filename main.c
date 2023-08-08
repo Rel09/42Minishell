@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 06:25:03 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 06:47:51 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	read_input(void)
 		else
 		{
 			heredoc_cleanup(linkedlist);
-			*heredoc_pid() = 0;
+			*heredoc_pid() = 0;;
 		}
 		delete_heredocs_files();
 		free(input);

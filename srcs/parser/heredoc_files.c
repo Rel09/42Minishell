@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 04:34:14 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 05:27:10 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 06:41:20 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_heredoc_fileprefix(void)
 
 	if (!init)
 	{
-		ft_strlcat(prefix, "_hd_temp_", ft_strlen("_hd_temp_") + 1);
+		ft_strlcat(prefix, "_hd_file_", ft_strlen("_hd_file_") + 1);
 		init = true;
 	}
 	return (prefix);

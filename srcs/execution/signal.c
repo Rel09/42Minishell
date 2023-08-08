@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:17:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 04:50:14 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 07:01:30 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	sigint_running_heredoc(int sig)
 	(void) sig;
 	kill(*heredoc_pid(), SIGTERM);
 	(*heredoc_pid()) = HEREDOC_KILLED;
+	rl_on_new_line();
 }
 
 void	sigint_interactive(int sig)
