@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:17:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/06 23:06:03 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/08 04:50:14 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ void	sigint_running_shell(int sig)
 {
 	(void) sig;
 	ft_putstr_fd("\n", 1);
+}
+
+void	sigint_running_heredoc(int sig)
+{
+	(void) sig;
+	kill(*heredoc_pid(), SIGTERM);
+	(*heredoc_pid()) = HEREDOC_KILLED;
 }
 
 void	sigint_interactive(int sig)
@@ -34,35 +41,6 @@ int	intercept_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 	return (0);
 }
-/*
-int	get_file_type(char *path)
-{
-	struct stat	path_stat;
-
-	if (!stat(path, &path_stat))
-	{
-		if (S_ISREG(path_stat.st_mode))
-		{
-			if (path_stat.st_mode & S_IXUSR)
-			{
-				return (EXE);
-			}
-			else
-			{
-				g_last_result = COMMAND_NOT_FOUND_EXIT;
-				return (NORMAL_FILE);
-			}
-		}
-		else if (S_ISDIR(path_stat.st_mode))
-		{
-			g_last_result = IS_DIR_EXIT;
-			return (DIR);
-		}
-	}
-	g_last_result = COMMAND_NOT_FOUND_EXIT;
-	return (NORMAL_FILE);
-}
-*/
 
 int	get_file_type(char *path)
 {

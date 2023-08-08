@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 18:25:08 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/04 06:50:45 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 05:31:35 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ms_exit(t_input *input)
 	if (!input || get_array_size(input->commands) == 1)
 	{
 		clean_static_memory();
+		delete_heredocs_files();
 		free_input(input);
 		exit(g_last_result);
 	}
@@ -67,6 +68,7 @@ void	ms_exit(t_input *input)
 	}
 	exit_process_argument(input->commands[1]);
 	clean_static_memory();
+	delete_heredocs_files();
 	free_input(input);
 	exit(g_last_result);
 }

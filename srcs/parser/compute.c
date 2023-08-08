@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/06 22:59:51 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 02:57:17 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	change_output(char *file, t_input *node, bool append)
 }
 
 // Change Input and close it if its not the default one
-static void	change_input(char *file, t_input *node)
+void	change_input(char *file, t_input *node)
 {
 	char	*temp;
 
@@ -50,8 +50,13 @@ static void	change_input(char *file, t_input *node)
 // Apply the redirection
 static void	do_redirect(char *type, char *file, t_input *node)
 {
+	if (!file)
+	{
+		perror_global("Minishell: ");
+		return ;
+	}
 	if (!ft_strcmp(type, "<<"))
-		change_input(file, node);
+		heredoc(file, node);
 	else if (!ft_strcmp(type, ">>"))
 		change_output(file, node, true);
 	else if (!ft_strcmp(type, "<"))

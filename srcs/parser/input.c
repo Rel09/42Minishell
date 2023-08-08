@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:30 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/04 06:17:30 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 04:52:37 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	init_node(t_input *newNode, char *token)
 	newNode->_stdin = STDIN_FILENO;
 	newNode->_stdout = STDOUT_FILENO;
 	commands = ft_strtok_monkas(token);
-	while (commands)
+	while (commands && *heredoc_pid() != HEREDOC_KILLED)
 	{
 		compute_node(commands, newNode, &i);
 		commands = ft_strtok_monkas(0);
@@ -61,7 +61,7 @@ t_input	*parse_input(char *input)
 	previousnode = NULL;
 	linkedlisthead = NULL;
 	token = ft_strtok(input);
-	while (token)
+	while (token && *heredoc_pid() != HEREDOC_KILLED)
 	{
 		newnode = ft_calloc(sizeof(t_input), 1);
 		if (!newnode)

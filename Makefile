@@ -1,67 +1,69 @@
 CC = gcc
 RM = rm -rf
 NAME = minishell
-FLAG = 
+FLAG = -Wall -Werror -Wextra
 SPECIAL_FLAG = -L./readline -lreadline -lhistory -ltermcap
 
 # Source files
-FILES := main.c \
-		srcs/env/init.c \
-		srcs/env/show.c \
-		srcs/env/findandremove.c \
-        srcs/parser/input.c \
-		srcs/parser/compute.c \
-		srcs/parser/convertargs.c \
-		srcs/parser/removequotes.c \
-		srcs/tools/ft_itoa.c \
-		srcs/tools/ft_bzero.c \
-		srcs/tools/ft_strtok.c \
-		srcs/tools/ft_strlen.c \
-		srcs/tools/ft_strcpy.c \
-		srcs/tools/ft_strdup.c \
-		srcs/tools/ft_strcmp.c \
-		srcs/tools/ft_isquote.c \
-		srcs/tools/ft_isredir.c \
-		srcs/tools/ft_isdigit.c \
-		srcs/tools/ft_isalpha.c \
-		srcs/tools/ft_strncmp.c \
-		srcs/tools/ft_strncat.c \
-		srcs/tools/ft_isspace.c \
-		srcs/tools/ft_strncpy.c \
-		srcs/tools/ft_strtok2.c \
-		srcs/tools/ft_isvariable.c \
-		srcs/tools/ft_isin2darray.c \
-		srcs/tools/ft_sort2darray.c \
-		srcs/tools/ft_copy2darray.c \
-		srcs/tools/ft_count2darray.c \
-		srcs/tools/ft_insert2darray.c \
-		srcs/tools/ft_remove2darray.c \
-		srcs/tools/ft_getvariablelen.c \
-		srcs/tools/ft_iscorrectenvname.c \
-		srcs/tools/ft_split.c \
-		srcs/tools/ft_substr.c \
-		srcs/tools/ft_calloc.c \
-		srcs/tools/ft_strlcpy.c \
-		srcs/tools/ft_strlcat.c \
-		srcs/tools/ft_putstr_fd.c \
-		srcs/tools/get_array_size.c \
-		srcs/tools/str_is_int.c \
-		srcs/tools/ft_atoi.c \
-		srcs/tools/free_double_array.c \
-		srcs/execution/ms_cd.c \
-		srcs/execution/ms_exe.c \
-		srcs/execution/ms_pwd.c \
-		srcs/execution/ms_env.c \
-		srcs/execution/ms_exit.c \
-		srcs/execution/ms_unset.c \
-		srcs/execution/ms_echo.c \
-		srcs/execution/free_input.c \
-		srcs/execution/command_handler.c \
-		srcs/execution/ms_export.c \
-		srcs/execution/ms_pipe.c \
-		srcs/execution/fd_list.c \
-		srcs/execution/pipe_utils.c \
-		srcs/execution/signal.c \
+FILES :=	main.c \
+			srcs/env/init.c \
+			srcs/env/show.c \
+			srcs/env/findandremove.c \
+        	srcs/parser/input.c \
+			srcs/parser/compute.c \
+			srcs/parser/heredoc.c \
+			srcs/parser/convertargs.c \
+			srcs/parser/removequotes.c \
+			srcs/parser/heredoc_files.c \
+			srcs/execution/ms_cd.c \
+			srcs/execution/ms_exe.c \
+			srcs/execution/ms_pwd.c \
+			srcs/execution/ms_env.c \
+			srcs/execution/signal.c \
+			srcs/execution/ms_exit.c \
+			srcs/execution/ms_echo.c \
+			srcs/execution/ms_pipe.c \
+			srcs/execution/fd_list.c \
+			srcs/execution/ms_unset.c \
+			srcs/execution/ms_export.c \
+			srcs/execution/pipe_utils.c \
+			srcs/execution/free_input.c \
+			srcs/execution/command_handler.c \
+			srcs/tools/ft_atoi.c \
+			srcs/tools/ft_itoa.c \
+			srcs/tools/ft_split.c \
+			srcs/tools/ft_bzero.c \
+			srcs/tools/ft_strtok.c \
+			srcs/tools/ft_strlen.c \
+			srcs/tools/ft_strcpy.c \
+			srcs/tools/ft_strdup.c \
+			srcs/tools/ft_substr.c \
+			srcs/tools/ft_calloc.c \
+			srcs/tools/ft_strcmp.c \
+			srcs/tools/ft_isquote.c \
+			srcs/tools/ft_isredir.c \
+			srcs/tools/ft_isdigit.c \
+			srcs/tools/ft_isalpha.c \
+			srcs/tools/ft_strncmp.c \
+			srcs/tools/ft_strncat.c \
+			srcs/tools/ft_strlcpy.c \
+			srcs/tools/ft_strlcat.c \
+			srcs/tools/ft_isspace.c \
+			srcs/tools/ft_strncpy.c \
+			srcs/tools/str_is_int.c \
+			srcs/tools/ft_strtok2.c \
+			srcs/tools/ft_putstr_fd.c \
+			srcs/tools/ft_isvariable.c \
+			srcs/tools/get_array_size.c \
+			srcs/tools/ft_isin2darray.c \
+			srcs/tools/ft_sort2darray.c \
+			srcs/tools/ft_copy2darray.c \
+			srcs/tools/ft_count2darray.c \
+			srcs/tools/ft_insert2darray.c \
+			srcs/tools/ft_remove2darray.c \
+			srcs/tools/ft_getvariablelen.c \
+			srcs/tools/free_double_array.c \
+			srcs/tools/ft_iscorrectenvname.c
 
 # Object files
 OBJS_DIR := objs
@@ -108,7 +110,7 @@ leaks: $(NAME)
 	valgrind --track-fds=yes --trace-children=yes --leak-check=full ./$(NAME)
 
 run: $(NAME)
-	@echo "$$(cat ./readline/historydef)"
+	@echo "$$(cat ./logo)"
 	@./$(NAME)
 
 #---------------------------       Phony        ---------------------------

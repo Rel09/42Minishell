@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 00:17:32 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/07 00:17:33 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 05:15:51 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ enum e_file_type
 	NORMAL_FILE
 };
 
+# define HEREDOC_KILLED -666
 # define COMMAND_NOT_FOUND_EXIT 127
 # define IS_DIR_EXIT 126
 
@@ -70,26 +71,30 @@ void		free_input(t_input *head);
 t_input		*parse_input(char *input);
 char		*remove_quotes(char	*str);
 char		*convert_all_args(char *command);
+void		change_input(char *file, t_input *node);
 void		compute_node(char *command, t_input *node, int *index);
 
-// --- ENV ---
+// Heredoc
+int			*heredoc_pid(void);
+char		*get_uniquefilename(void);
+void		delete_heredocs_files(void);
+int			*get_heredoc_filecount(void);
+char		*get_heredoc_fileprefix(void);
+void		heredoc_cleanup(t_input	*node);
+char		*convert_all_args_hd(char *command);
+void		heredoc(char *keyword, t_input *node);
 
-//		Display Env
-void		show_env(void);			// env
-void		show_env_export(void);	// export
+// Env
 
-//		Env
+void		show_env(void);
+void		show_env_export(void);
 char		***get_env(void);
 void		free_env(void);
 void		init_env(char **env);
 void		find_and_remove(char *str);
-
-//		Add / Remove from Env
 void		add_to_env(char *str);
 void		rem_from_env(char *argname);
 char		*find_and_return(char *str);
-
-// -----------
 
 // Tools
 bool		is_valid_longlong(const char *str);
@@ -142,11 +147,14 @@ bool		ft_isin2darray(char **src, char *tofind);
 void		ft_remove2darray(char ***dist, char **src, char *str);
 void		ft_insert2darray(char ***dist, char **src, char *newstr);
 
+// Signals
+void		sigint_interactive(int sig);
+void		sigint_running_shell(int sig);
+void		sigint_running_heredoc(int sig);
+
 // execution
 void		ms_export(char **args);
 int			intercept_signals(void);
-void		sigint_interactive(int sig);
-void		sigint_running_shell(int sig);
 void		ms_pipes(t_input *input, t_fd_chain *fd_chain);
 t_fd_chain	*open_new_pipe(t_fd_chain *fd_chain);
 t_fd_chain	*close_fd_chain(t_fd_chain *fd_chain);

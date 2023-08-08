@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/07 00:18:03 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 05:33:16 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,17 @@ void	read_input(void)
 			ms_exit(NULL);
 		add_history(input);
 		linkedlist = parse_input(input);
-		if (!linkedlist || !argschecker(linkedlist, input))
+		if (!linkedlist)
 			continue ;
-		command_handler(linkedlist);
 		signal(SIGINT, sigint_interactive);
+		if (*heredoc_pid() != HEREDOC_KILLED || !argschecker(linkedlist, input))
+			command_handler(linkedlist);
+		else
+		{
+			heredoc_cleanup(linkedlist);
+			*heredoc_pid() = 0;
+		}
+		delete_heredocs_files();
 		free(input);
 		free_input(linkedlist);
 	}
@@ -105,7 +112,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_env(env);
 	intercept_signals();
-	save_std(SAVE_IN | SAVE_OUT);
+	save_std(SAVE_IN | SAVE_OUT);	// make leaks says theres fd open here? unsure
 	read_input();
 	return (0);
 }
