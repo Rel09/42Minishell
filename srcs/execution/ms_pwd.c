@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 21:48:47 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/08 14:28:16 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/08 15:15:16 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ void	ms_pwd(char **args)
 	}
 }
 
+static void	check_permission_rights(char *path)
+{
+	if (!ft_strncmp("./", path, 2))
+	{
+		access(path, X_OK);
+		if (errno == EACCES)
+			g_last_result = PERMISSION_DENIED_EXIT;
+	}
+}
+
 int	get_file_type(char *path)
 {
 	struct stat	path_stat;
@@ -40,6 +50,7 @@ int	get_file_type(char *path)
 			&& !(path_stat.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH)))
 		{
 			g_last_result = COMMAND_NOT_FOUND_EXIT;
+			check_permission_rights(path);
 			return (NORMAL_FILE);
 		}
 		else if (S_ISDIR(path_stat.st_mode))
@@ -52,13 +63,14 @@ int	get_file_type(char *path)
 			return (EXE);
 	}
 	g_last_result = COMMAND_NOT_FOUND_EXIT;
+	check_permission_rights(path);
 	return (NORMAL_FILE);
 }
 
 void	error_message_exe(char *str)
 {
 	get_file_type(str);
-	if (errno == ENOENT)
+	if (errno == ENOENT && ft_strncmp(str, "./", 2))
 	{
 		ft_putstr_fd("Minishell: ", STDERR_FILENO);
 		ft_putstr_fd(str, STDERR_FILENO);
