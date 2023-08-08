@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:17:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 07:01:30 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 12:44:05 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	sigint_running_shell(int sig)
 void	sigint_running_heredoc(int sig)
 {
 	(void) sig;
-	kill(*heredoc_pid(), SIGTERM);
 	(*heredoc_pid()) = HEREDOC_KILLED;
 	rl_on_new_line();
 }
@@ -43,25 +42,10 @@ int	intercept_signals(void)
 	return (0);
 }
 
-int	get_file_type(char *path)
+void	heredoc_child_sighandler(int sig)
 {
-	struct stat	path_stat;
-
-	if (!stat(path, &path_stat))
-	{
-		if (S_ISREG(path_stat.st_mode) && !(path_stat.st_mode & S_IXUSR))
-		{
-			g_last_result = COMMAND_NOT_FOUND_EXIT;
-			return (NORMAL_FILE);
-		}
-		else if (S_ISDIR(path_stat.st_mode))
-		{
-			g_last_result = IS_DIR_EXIT;
-			return (DIR);
-		}
-		else
-			return (EXE);
-	}
-	g_last_result = COMMAND_NOT_FOUND_EXIT;
-	return (NORMAL_FILE);
+	(void) sig;
+	clean_static_memory();
+	//need to retrieve all the malloc shit in here and free it
+	exit(EXIT_FAILURE);
 }

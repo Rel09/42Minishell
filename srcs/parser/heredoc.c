@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 00:55:06 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 07:01:48 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 12:45:53 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	heredoc_fork(char **input, char *keyword, int fd)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, heredoc_child_sighandler);
 		while (ft_strcmp(*input, keyword))
 		{
 			free(*input);
@@ -44,7 +45,8 @@ static void	heredoc_fork(char **input, char *keyword, int fd)
 	else
 	{
 		(*heredoc_pid()) = pid;
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &g_last_result, 0);
+		convert_exit();
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 00:17:32 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 07:01:55 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 14:28:36 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/stat.h>//								File Stat
 # include <fcntl.h>//									Open / Read
 # include <stdlib.h>// 									Malloc & Free
+# include <errno.h>//									Setting perror messages
 
 # include "./readline/readline.h"// 					Readline
 # include "./readline/history.h"//						History
@@ -65,6 +66,7 @@ enum e_file_type
 # define HEREDOC_KILLED -666
 # define COMMAND_NOT_FOUND_EXIT 127
 # define IS_DIR_EXIT 126
+# define PERMISSION_DENIED_EXIT 126
 
 // Parsing
 void		free_input(t_input *head);
@@ -151,6 +153,7 @@ void		ft_insert2darray(char ***dist, char **src, char *newstr);
 void		sigint_interactive(int sig);
 void		sigint_running_shell(int sig);
 void		sigint_running_heredoc(int sig);
+void		heredoc_child_sighandler(int sig);
 
 // execution
 void		ms_export(char **args);
@@ -180,5 +183,7 @@ void		clean_static_memory(void);
 void		*ft_calloc(size_t nitems, size_t size);
 void		convert_exit(void);
 int			get_file_type(char *path);
+void		error_message_exe(char *str);
+void		dup_last_fd(t_fd_chain *fd_chain);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:35:43 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/06 21:14:08 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/08 14:28:26 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,6 @@ static void	wait_for_my_child(t_fd_chain *fd_chain)
 		waitpid(fd_chain->pid, NULL, 0);
 		fd_chain = fd_chain->next;
 	}
-}
-
-static void	dup_last_fd(t_fd_chain *fd_chain)
-{
-	while (fd_chain->next)
-	{
-		close(fd_chain->fd[1]);
-		close(fd_chain->fd[0]);
-		fd_chain = fd_chain->next;
-	}
-	close(fd_chain->fd[1]);
-	dup2(fd_chain->fd[0], STDIN_FILENO);
-	close(fd_chain->fd[0]);
 }
 
 static void	last_command(t_input *input, t_fd_chain *fd_chain)

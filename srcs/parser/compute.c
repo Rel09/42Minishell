@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 02:57:17 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 11:30:58 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

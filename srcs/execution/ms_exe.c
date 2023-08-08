@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:24:02 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/06 23:15:10 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 14:03:00 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void	ms_exe(t_input *input)
 	{
 		signal(SIGINT, SIG_DFL);
 		exe_command(input->commands);
-		perror("exe");
+		error_message_exe(input->commands[0]);
 		free_input(input);
 		clean_static_memory();
 		exit (g_last_result);

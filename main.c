@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 06:47:51 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/08 12:51:45 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,10 @@ bool	argschecker(t_input *LL, char *input)
 	{
 		ft_putstr_fd("Minishell: syntax error near unexpected token\n",
 			STDERR_FILENO);
+		free(input);
 		return (false);
 	}
+	free(input);
 	return (true);
 }
 
@@ -97,11 +99,11 @@ void	read_input(void)
 			command_handler(linkedlist);
 		else
 		{
+			free(input);
 			heredoc_cleanup(linkedlist);
-			*heredoc_pid() = 0;;
+			*heredoc_pid() = 0;
 		}
 		delete_heredocs_files();
-		free(input);
 		free_input(linkedlist);
 	}
 }
@@ -112,7 +114,7 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	init_env(env);
 	intercept_signals();
-	save_std(SAVE_IN | SAVE_OUT);	// leaks ?
+	save_std(SAVE_IN | SAVE_OUT);
 	read_input();
 	return (0);
 }
