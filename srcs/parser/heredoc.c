@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 00:55:06 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 14:28:18 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:01:11 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	signal_heredok(int sig)
 	heredoc_state()->cancel = true;
 }
 
-void	heredoc_ctrld();
+void	heredoc_ctrld(void);
 
 static void	heredoc2(char **input, char *keyword, int fd)
 {
