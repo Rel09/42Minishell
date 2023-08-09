@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 11:30:58 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:26:35 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@ static void	do_redirect(char *type, char *file, t_input *node)
 	if (!file)
 	{
 		perror_global("Minishell: ");
+		return ;
+	}
+	if (ft_isredir(type) && ft_isredir_or_pipe(file))
+	{
+		heredoc_state()->cancel = true;
+		ft_putstr_fd("Minishell: syntax error near unexpected token '",
+			STDERR_FILENO);
+		ft_putstr_fd(file, STDERR_FILENO);
+		ft_putstr_fd("'\n", STDERR_FILENO);
+		g_last_result = UNEXPECTED_TOKEN_ERROR;
 		return ;
 	}
 	if (!ft_strcmp(type, "<<"))

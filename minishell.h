@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 00:17:32 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 03:10:28 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/09 13:25:31 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ enum e_file_type
 # define COMMAND_NOT_FOUND_EXIT 127
 # define IS_DIR_EXIT 126
 # define PERMISSION_DENIED_EXIT 126
+# define UNEXPECTED_TOKEN_ERROR 258
 
 // Parsing
 void		free_input(t_input *head);
@@ -88,7 +89,7 @@ void		change_input(char *file, t_input *node);
 void		compute_node(char *command, t_input *node, int *index);
 
 // Heredoc
-void		restoreline();
+void		restoreline(void);
 t_hd_state	*heredoc_state(void);
 char		*get_uniquefilename(void);
 void		delete_heredocs_files(void);
@@ -141,6 +142,8 @@ int			get_array_size(char	**array);
 void		ft_putstr_fd(char *s, int fd);
 long long	ft_longlongatoi(const char *nptr);
 bool		check_fd(t_input *input);
+bool		ft_isredir_or_pipe(char *str);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
 
 // Strtoks - SUPER cursed stuff
 char		*ft_strtok(char *str);

@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 03:11:53 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/09 13:28:05 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	read_input(void)
+void	read_input(char	*input)
 {
-	char	*input;
 	t_input	*linkedlist;
 
 	while (true)
@@ -32,9 +31,10 @@ void	read_input(void)
 		signal(SIGINT, sigint_interactive);
 		if (!heredoc_state()->cancel || !argschecker(linkedlist))
 			command_handler(linkedlist);
-		else {
+		else
+		{
 			clean_mess(input, linkedlist);
-			continue;
+			continue ;
 		}
 		delete_heredocs_files();
 		free_input(linkedlist);
@@ -48,6 +48,6 @@ int	main(int ac, char **av, char **env)
 	init_env(env);
 	intercept_signals();
 	save_std(SAVE_IN | SAVE_OUT);
-	read_input();
+	read_input(NULL);
 	return (0);
 }

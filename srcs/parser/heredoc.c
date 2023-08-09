@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 00:55:06 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 02:30:16 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/09 13:26:54 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 // Hold the Heredoc State
-t_hd_state	*heredoc_state()
+t_hd_state	*heredoc_state(void)
 {
 	static t_hd_state	t;
 	static bool			init;
@@ -23,14 +23,13 @@ t_hd_state	*heredoc_state()
 		t.stdin_clone = -1;
 		init = true;
 	}
-
 	return (&t);
 }
 
 void	signal_heredok(int sig)
 {
 	(void)sig;
-
+	g_last_result = EXIT_FAILURE;
 	close(STDIN_FILENO);
 	heredoc_state()->cancel = true;
 }

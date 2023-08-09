@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_iscorrectenvname.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:33:15 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/07/30 21:41:11 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/09 13:23:22 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,25 @@ bool	ft_iscorrectenvname(char *str)
 		i++;
 	}
 	return (true);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t	i;
+	char	*d;
+	char	*s;
+
+	if (!dst || !src)
+		return (dst);
+	d = (char *)dst;
+	s = (char *)src;
+	if (!dst && !src)
+		return (dst);
+	i = 0;
+	while (i < n)
+	{
+		d[i] = s[i];
+		i++;
+	}
+	return (dst);
 }

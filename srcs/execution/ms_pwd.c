@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 21:48:47 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/08 15:15:16 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:24:12 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@
 /*print the current working directory */
 void	ms_pwd(char **args)
 {
-	char	pwd[1024];
+	char		pwd[1024];
+	static char	delpwd[1024];
 
 	g_last_result = 0;
 	(void)args;
 	if (getcwd(pwd, sizeof(pwd)))
 	{
+		ft_memcpy(delpwd, pwd, sizeof(pwd));
 		printf("%s\n", pwd);
 	}
 	else
 	{
-		perror_global("getcwd");
+		printf("%s\n", delpwd);
 	}
 }
 

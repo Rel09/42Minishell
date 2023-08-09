@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_errors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 03:07:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 03:11:20 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/09 13:27:19 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ bool	check_input(char *input)
 	{
 		ft_putstr_fd("Minishell: syntax error near unexpected token '|'\n",
 			STDERR_FILENO);
-		//Faut mettre le bon error code quand le user ecrit juste "|"
-		//g_last_result = 268;
+		g_last_result = UNEXPECTED_TOKEN_ERROR;
 		free(input);
 		return (false);
 	}
@@ -73,9 +72,10 @@ void	clean_mess(char *input, t_input *LL)
 	heredoc_state()->cancel = false;
 }
 
-void	restoreline()
+void	restoreline(void)
 {
 	dup2(heredoc_state()->stdin_clone, STDIN_FILENO);
+	heredoc_state()->cancel = false;
 	rl_on_new_line();
 	rl_redisplay();
 	ft_putstr_fd("  \n", 1);
