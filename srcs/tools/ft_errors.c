@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 03:07:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 14:31:37 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:42:03 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ bool	check_fd(t_input *input)
 	{
 		if (input->_stdin == -1)
 		{
-			open(input->_stdinname, O_RDONLY);
+			access(input->_stdinname, R_OK);
 			ft_putstr_fd("Minishell: ", STDERR_FILENO);
 			perror_global(input->_stdinname);
 		}
 		if (input->_stdout == -1)
 		{
+			access(input->_stdoutname, W_OK);
 			ft_putstr_fd("Minishell: ", STDERR_FILENO);
 			perror_global(input->_stdoutname);
 		}
