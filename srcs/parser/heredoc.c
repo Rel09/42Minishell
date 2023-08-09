@@ -72,11 +72,10 @@ void	heredoc(char *keyword, t_input *node)
 	filename = get_uniquefilename();
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	heredoc2(&input, keyword, fd);
-	signal(SIGINT, sigint_interactive);
+	signal(SIGINT, sigint_running_shell);
 	close(fd);
 	free(input);
 	change_input(filename, node);
 	if (node->_stdin == -1)
 		heredoc_state()->fd_broken = true;
-	signal(SIGINT, sigint_running_shell);
 }
