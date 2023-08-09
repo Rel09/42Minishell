@@ -109,7 +109,7 @@ fclean: clean
 re: fclean all
 
 leaks: $(NAME)
-	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --show-reachable=no ./$(NAME)
+	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all ./$(NAME)
 
 run: $(NAME)
 	@echo "$$(cat ./logo)"
