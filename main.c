@@ -30,10 +30,12 @@ void	read_input(void)
 		if (!linkedlist)
 			continue ;
 		signal(SIGINT, sigint_interactive);
-		if (*heredoc_pid() != HEREDOC_KILLED || !argschecker(linkedlist))
+		if (!heredoc_state()->cancel || !argschecker(linkedlist))
 			command_handler(linkedlist);
-		else
+		else {
 			clean_mess(input, linkedlist);
+			continue;
+		}
 		delete_heredocs_files();
 		free_input(linkedlist);
 	}

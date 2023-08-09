@@ -56,8 +56,10 @@ bool	check_input(char *input)
 		i++;
 	if (input[i] == '|')
 	{
-		ft_putstr_fd("Minishell: syntax error near unexpected token\n",
+		ft_putstr_fd("Minishell: syntax error near unexpected token '|'\n",
 			STDERR_FILENO);
+		//Faut mettre le bon error code quand le user ecrit juste "|"
+		//g_last_result = 268;
 		free(input);
 		return (false);
 	}
@@ -68,5 +70,14 @@ void	clean_mess(char *input, t_input *LL)
 {
 	free(input);
 	free_input(LL);
-	*heredoc_pid() = 0;
+	heredoc_state()->cancel = false;
+}
+
+void	restoreline()
+{
+	dup2(heredoc_state()->stdin_clone, STDIN_FILENO);
+	rl_on_new_line();
+	rl_redisplay();
+	ft_putstr_fd("  \n", 1);
+	rl_replace_line("", 0);
 }

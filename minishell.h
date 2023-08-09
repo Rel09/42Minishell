@@ -39,6 +39,13 @@ typedef struct s_input// Final Output
 	struct s_input	*next;
 }	t_input;
 
+typedef struct s_heredoc_state
+{
+	int		stdin_clone;
+	bool	fd_broken;
+	bool	cancel;
+}	t_hd_state;
+
 typedef struct s_fd_chain {
 	int					pid;
 	int					fd[2];
@@ -81,10 +88,8 @@ void		change_input(char *file, t_input *node);
 void		compute_node(char *command, t_input *node, int *index);
 
 // Heredoc
-t_input		**heredoc_ll(void);
-int			*heredoc_fd(void);
-int			*heredoc_pid(void);
-bool		*heredoc_broken(void);
+void		restoreline();
+t_hd_state	*heredoc_state(void);
 char		*get_uniquefilename(void);
 void		delete_heredocs_files(void);
 int			*get_heredoc_filecount(void);
@@ -92,7 +97,6 @@ char		*get_heredoc_fileprefix(void);
 void		heredoc_cleanup(t_input	*node);
 char		*convert_all_args_hd(char *command);
 void		heredoc(char *keyword, t_input *node);
-void		free_garbage(t_input *ll, char **input, int fd);
 
 // Env
 void		show_env(void);

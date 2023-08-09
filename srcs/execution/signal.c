@@ -18,13 +18,6 @@ void	sigint_running_shell(int sig)
 	ft_putstr_fd("\n", 1);
 }
 
-void	sigint_running_heredoc(int sig)
-{
-	(void) sig;
-	(*heredoc_pid()) = HEREDOC_KILLED;
-	rl_on_new_line();
-}
-
 void	sigint_interactive(int sig)
 {
 	(void) sig;
@@ -40,21 +33,4 @@ int	intercept_signals(void)
 	signal(SIGINT, sigint_interactive);
 	signal(SIGQUIT, SIG_IGN);
 	return (0);
-}
-
-void	heredoc_child_sighandler(int sig)
-{
-	int	fd;
-
-	(void) sig;
-	clean_static_memory();
-	fd = *heredoc_fd();
-	if (fd > 2)
-	{
-		close(fd);
-		(*heredoc_fd()) = 0;
-	}
-	free_input(*heredoc_ll());
-	*heredoc_ll() = 0;
-	exit(EXIT_FAILURE);
 }

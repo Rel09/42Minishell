@@ -25,7 +25,7 @@ static void	init_node(t_input *newNode, char *token)
 	newNode->_stdin = STDIN_FILENO;
 	newNode->_stdout = STDOUT_FILENO;
 	commands = ft_strtok_monkas(token);
-	while (commands && *heredoc_pid() != HEREDOC_KILLED)
+	while (commands && !heredoc_state()->cancel)
 	{
 		compute_node(commands, newNode, &i);
 		commands = ft_strtok_monkas(0);
@@ -61,7 +61,7 @@ t_input	*parse_input(char *input)
 	previousnode = NULL;
 	linkedlisthead = NULL;
 	token = ft_strtok(input);
-	while (token && *heredoc_pid() != HEREDOC_KILLED)
+	while (token && !heredoc_state()->cancel)
 	{
 		newnode = ft_calloc(sizeof(t_input), 1);
 		if (!newnode)
