@@ -2,7 +2,7 @@ CC = gcc
 RM = rm -rf
 NAME = minishell
 FLAG = -Wall -Werror -Wextra
-SPECIAL_FLAG = -L./readline -lreadline -lhistory -ltermcap
+SPECIAL_FLAG = -L./readline -lreadline -lhistory
 
 # Source files
 FILES :=	main.c \
