@@ -34,6 +34,7 @@ FILES :=	main.c \
 			srcs/tools/ft_itoa.c \
 			srcs/tools/ft_split.c \
 			srcs/tools/ft_bzero.c \
+			srcs/tools/ft_errors.c \
 			srcs/tools/ft_strtok.c \
 			srcs/tools/ft_strlen.c \
 			srcs/tools/ft_strcpy.c \

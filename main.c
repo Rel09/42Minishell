@@ -3,81 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 12:51:45 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 03:11:53 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_linkedlist(t_input *LL)
-{
-	int	i;
-
-	if (!LL)
-	{
-		printf("%p\n", LL);
-		return ;
-	}
-	while (LL)
-	{
-		i = 0;
-		while (LL->commands[i])
-			printf("[%s] ", LL->commands[i++]);
-		printf("     STDIN:[%i]  STDOUT:[%i]\n", LL->_stdin, LL->_stdout);
-		LL = LL->next;
-	}
-}
-
-bool	argschecker(t_input *LL, char *input)
-{
-	int	i;
-
-	while (LL)
-	{
-		if (!LL->commands)
-		{
-			ft_putstr_fd("Minishell: syntax error near unexpected token\n",
-				STDERR_FILENO);
-			return (false);
-		}
-		LL = LL->next;
-	}
-	i = 0;
-	while (ft_isspace(input[i]))
-		i++;
-	if (input[i] == '|')
-	{
-		ft_putstr_fd("Minishell: syntax error near unexpected token\n",
-			STDERR_FILENO);
-		free(input);
-		return (false);
-	}
-	free(input);
-	return (true);
-}
-
-bool	check_fd(t_input *input)
-{
-	if (input->_stdin == -1 || input->_stdout == -1)
-	{
-		if (input->_stdin == -1)
-		{
-			open(input->_stdinname, O_RDONLY);
-			ft_putstr_fd("Minishell: ", STDERR_FILENO);
-			perror_global(input->_stdinname);
-		}
-		if (input->_stdout == -1)
-		{
-			ft_putstr_fd("Minishell: ", STDERR_FILENO);
-			perror_global(input->_stdoutname);
-		}
-		return (false);
-	}
-	return (true);
-}
 
 void	read_input(void)
 {
@@ -91,18 +24,16 @@ void	read_input(void)
 		if (!input)
 			ms_exit(NULL);
 		add_history(input);
+		if (!check_input(input))
+			continue ;
 		linkedlist = parse_input(input);
 		if (!linkedlist)
 			continue ;
 		signal(SIGINT, sigint_interactive);
-		if (*heredoc_pid() != HEREDOC_KILLED || !argschecker(linkedlist, input))
+		if (*heredoc_pid() != HEREDOC_KILLED || !argschecker(linkedlist))
 			command_handler(linkedlist);
 		else
-		{
-			free(input);
-			heredoc_cleanup(linkedlist);
-			*heredoc_pid() = 0;
-		}
+			clean_mess(input, linkedlist);
 		delete_heredocs_files();
 		free_input(linkedlist);
 	}

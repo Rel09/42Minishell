@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:17:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 02:36:19 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/09 03:05:21 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	heredoc_child_sighandler(int sig)
 		(*heredoc_fd()) = 0;
 	}
 	free_input(*heredoc_ll());
+	*heredoc_ll() = 0;
 	exit(EXIT_FAILURE);
 }
