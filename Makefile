@@ -15,6 +15,7 @@ FILES :=	main.c \
 			srcs/parser/convertargs.c \
 			srcs/parser/removequotes.c \
 			srcs/parser/heredoc_files.c \
+			srcs/parser/heredoc_signals.c \
 			srcs/execution/ms_cd.c \
 			srcs/execution/ms_exe.c \
 			srcs/execution/ms_pwd.c \
@@ -108,7 +109,7 @@ fclean: clean
 re: fclean all
 
 leaks: $(NAME)
-	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all ./$(NAME)
+	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --show-reachable=no ./$(NAME)
 
 run: $(NAME)
 	@echo "$$(cat ./logo)"

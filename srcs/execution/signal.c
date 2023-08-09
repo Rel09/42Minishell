@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:17:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 12:44:05 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 02:36:19 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,16 @@ int	intercept_signals(void)
 
 void	heredoc_child_sighandler(int sig)
 {
+	int	fd;
+
 	(void) sig;
 	clean_static_memory();
-	//need to retrieve all the malloc shit in here and free it
+	fd = *heredoc_fd();
+	if (fd > 2)
+	{
+		close(fd);
+		(*heredoc_fd()) = 0;
+	}
+	free_input(*heredoc_ll());
 	exit(EXIT_FAILURE);
 }

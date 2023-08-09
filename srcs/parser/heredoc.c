@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 00:55:06 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 12:45:53 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 02:30:16 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-// Allow us to exit the HEREDOC if signal is called
-int	*heredoc_pid(void)
-{
-	static int	heredoc_pid;
-
-	return (&heredoc_pid);
-}
 
 // Create a fork during HEREDOC so we can kill it while its running
 static void	heredoc_fork(char **input, char *keyword, int fd)
@@ -29,10 +21,10 @@ static void	heredoc_fork(char **input, char *keyword, int fd)
 	if (pid == 0)
 	{
 		signal(SIGINT, heredoc_child_sighandler);
+		(*heredoc_fd()) = fd;
 		while (ft_strcmp(*input, keyword))
 		{
 			free(*input);
-			*input = NULL;
 			*input = readline("> ");
 			if (ft_strcmp(*input, keyword))
 			{
@@ -40,11 +32,11 @@ static void	heredoc_fork(char **input, char *keyword, int fd)
 				ft_putstr_fd("\n", fd);
 			}
 		}
+		free_garbage(*heredoc_ll(), input, fd);
 		exit(0);
 	}
 	else
 	{
-		(*heredoc_pid()) = pid;
 		waitpid(pid, &g_last_result, 0);
 		convert_exit();
 	}
@@ -85,11 +77,14 @@ void	heredoc(char *keyword, t_input *node)
 	filename = get_uniquefilename();
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	signal(SIGINT, sigint_running_heredoc);
+	*heredoc_ll() = node;
 	heredoc_fork(&input, keyword, fd);
 	if (*heredoc_pid() != HEREDOC_KILLED)
 		(*heredoc_pid()) = 0;
 	close(fd);
 	free(input);
+	*heredoc_ll() = 0;
+	(*heredoc_fd()) = 0;
 	change_input(filename, node);
 	if (node->_stdin == -1)
 		*heredoc_broken() = true;
