@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:24:02 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/08 14:03:00 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:53:55 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,7 @@ static void	exe_command(char **args)
 	save_std(CLOSE_IN | CLOSE_OUT);
 	path = args[0];
 	g_last_result = COMMAND_NOT_FOUND_EXIT;
-	file_type = get_file_type(path); 
-	if (access(path, F_OK | X_OK))
-	{
-		if (file_type == EXE)
-			execve(path, args, *get_env());
-	}
+	execve(path, args, *get_env());
 	path = search_exe_in_path_env(args);
 	if (path)
 	{
@@ -105,7 +100,7 @@ void	ms_exe(t_input *input)
 	}
 	else if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
+		default_sig();
 		exe_command(input->commands);
 		error_message_exe(input->commands[0]);
 		free_input(input);

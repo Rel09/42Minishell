@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 23:33:19 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/05 00:45:16 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:00:03 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_fd_chain	*open_new_pipe(t_fd_chain *fd_chain)
 	if (pipe(tmp->fd) == -1)
 	{
 		perror_global("pipe");
+		close_fd_chain(fd_chain);
 		free_fd_chain(fd_chain);
 		return (NULL);
 	}

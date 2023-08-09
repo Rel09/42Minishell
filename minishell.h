@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 00:17:32 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 14:34:05 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:53:39 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,8 @@ void		sigint_interactive(int sig);
 void		sigint_running_shell(int sig);
 void		sigint_running_heredoc(int sig);
 void		heredoc_child_sighandler(int sig);
+void		interactive_sighandlers(void);
+
 
 // execution
 void		ms_export(char **args);
@@ -199,5 +201,6 @@ void		convert_exit(void);
 int			get_file_type(char *path);
 void		error_message_exe(char *str);
 void		dup_last_fd(t_fd_chain *fd_chain);
+void		default_sig(void);
 
 #endif

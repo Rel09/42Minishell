@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:35:43 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/08 14:28:26 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:54:06 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	dup_fd_chain(t_fd_chain *fd_chain, t_input *input,
 	}
 	else if (fd_chain->pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
+		default_sig();
 		dup_fd_chain_child(fd_chain, input, fd_chain, input_head);
 	}
 	return (dup_fd_chain(fd_chain->next, input->next, fd_head, input_head));
@@ -74,7 +74,7 @@ static void	last_command(t_input *input, t_fd_chain *fd_chain)
 	}
 	else if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
+		default_sig();
 		head = input;
 		while (input->next)
 			input = input->next;

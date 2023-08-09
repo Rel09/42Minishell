@@ -6,11 +6,13 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 14:33:24 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:11:54 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
 
 void	read_input(char	*input)
 {
@@ -18,8 +20,8 @@ void	read_input(char	*input)
 
 	while (true)
 	{
+		intercept_signals();
 		input = readline("Minishell > ");
-		signal(SIGINT, sigint_running_shell);
 		if (!input)
 			ms_exit(NULL);
 		add_history(input);
@@ -28,7 +30,7 @@ void	read_input(char	*input)
 		linkedlist = parse_input(input, NULL);
 		if (!linkedlist)
 			continue ;
-		signal(SIGINT, sigint_interactive);
+		interactive_sighandlers();
 		if (!heredoc_state()->cancel || !argschecker(linkedlist))
 			command_handler(linkedlist);
 		else
