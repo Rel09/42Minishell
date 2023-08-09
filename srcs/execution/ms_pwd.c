@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 21:48:47 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/09 13:24:12 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:49:05 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int	get_file_type(char *path)
 			check_permission_rights(path);
 			return (NORMAL_FILE);
 		}
-		else if (S_ISDIR(path_stat.st_mode))
+		else if (S_ISDIR(path_stat.st_mode) && (!ft_strncmp(path, "./", 2)
+				|| !ft_strncmp(path, "/", 1)))
 		{
 			errno = EISDIR;
 			g_last_result = IS_DIR_EXIT;
