@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 00:55:06 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 13:26:54 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:28:18 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,22 @@ void	signal_heredok(int sig)
 	heredoc_state()->cancel = true;
 }
 
+void	heredoc_ctrld();
+
 static void	heredoc2(char **input, char *keyword, int fd)
 {
+	int	i;
+
+	i = 0;
 	signal(SIGINT, signal_heredok);
 	heredoc_state()->stdin_clone = dup(STDIN_FILENO);
 	while (!heredoc_state()->cancel && ft_strcmp(*input, keyword))
 	{
 		free(*input);
 		*input = readline("> ");
-		if (!heredoc_state()->cancel && ft_strcmp(*input, keyword))
+		if (!input)
+			heredoc_state()->cancel = true;
+		else if (!heredoc_state()->cancel && ft_strcmp(*input, keyword))
 		{
 			ft_putstr_fd(convert_all_args_hd(*input), fd);
 			ft_putstr_fd("\n", fd);

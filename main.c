@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 13:28:05 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:33:24 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	read_input(char	*input)
 		add_history(input);
 		if (!check_input(input))
 			continue ;
-		linkedlist = parse_input(input);
+		linkedlist = parse_input(input, NULL);
 		if (!linkedlist)
 			continue ;
 		signal(SIGINT, sigint_interactive);
@@ -33,7 +33,7 @@ void	read_input(char	*input)
 			command_handler(linkedlist);
 		else
 		{
-			clean_mess(input, linkedlist);
+			clean_mess(linkedlist);
 			continue ;
 		}
 		delete_heredocs_files();

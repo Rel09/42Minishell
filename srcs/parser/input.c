@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:30 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/08 04:52:37 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/09 14:33:05 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,10 @@ static void	init_next(t_input **ll, t_input **newnode, t_input **llh)
 }
 
 // Split the | commands
-t_input	*parse_input(char *input)
+t_input	*parse_input(char *input, t_input *linkedlist)
 {
 	char		*token;
 	t_input		*newnode;
-	t_input		*linkedlist;
 	t_input		*previousnode;
 	t_input		*linkedlisthead;
 
@@ -75,5 +74,6 @@ t_input	*parse_input(char *input)
 		previousnode = newnode;
 		token = ft_strtok(NULL);
 	}
+	free(input);
 	return (linkedlisthead);
 }

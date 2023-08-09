@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 00:17:32 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 13:25:31 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:34:05 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ enum e_file_type
 
 // Parsing
 void		free_input(t_input *head);
-t_input		*parse_input(char *input);
+t_input		*parse_input(char *input, t_input *linkedlist);
 char		*remove_quotes(char	*str);
 bool		argschecker(t_input *LL);
 bool		check_fd(t_input *input);
 bool		check_input(char *input);
-void		clean_mess(char *input, t_input *LL);
+void		clean_mess(t_input *LL);
 char		*convert_all_args(char *command);
 void		change_input(char *file, t_input *node);
 void		compute_node(char *command, t_input *node, int *index);

@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 03:07:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 13:27:19 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:31:37 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,8 @@ bool	check_input(char *input)
 	return (true);
 }
 
-void	clean_mess(char *input, t_input *LL)
+void	clean_mess(t_input *LL)
 {
-	free(input);
 	free_input(LL);
 	heredoc_state()->cancel = false;
 }
@@ -75,6 +74,7 @@ void	clean_mess(char *input, t_input *LL)
 void	restoreline(void)
 {
 	dup2(heredoc_state()->stdin_clone, STDIN_FILENO);
+	close(heredoc_state()->stdin_clone);
 	heredoc_state()->cancel = false;
 	rl_on_new_line();
 	rl_redisplay();
