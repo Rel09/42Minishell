@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_errors.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 03:07:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 14:42:03 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/14 21:32:59 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	restoreline(void)
 {
 	dup2(heredoc_state()->stdin_clone, STDIN_FILENO);
 	close(heredoc_state()->stdin_clone);
-	heredoc_state()->cancel = false;
 	rl_on_new_line();
 	rl_redisplay();
 	ft_putstr_fd("  \n", 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:17:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 19:11:27 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/14 21:29:20 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	sigint_running_shell(int sig)
 {
 	if (sig == SIGINT)
+	{
 		ft_putstr_fd("\n", 1);
+	}
 	else if (sig == SIGQUIT)
 		ft_putstr_fd("quit: 3\n", 2);
 }
@@ -23,10 +25,11 @@ void	sigint_running_shell(int sig)
 void	sigint_interactive(int sig)
 {
 	(void) sig;
-	ft_putstr_fd("\n", STDOUT_FILENO);
 	rl_on_new_line();
-	rl_replace_line("", 0);
 	rl_redisplay();
+	ft_putstr_fd("  \n", 1);
+	rl_replace_line("", 0);
+	printf("Minishell > ");
 }
 
 int	intercept_signals(void)
