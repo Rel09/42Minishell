@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/14 21:34:12 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/14 21:43:36 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	read_input(char	*input)
 	while (true)
 	{
 		intercept_signals();
+		delete_heredocs_files();
 		input = readline("Minishell > ");
 		if (!input)
 			ms_exit(NULL);
@@ -36,7 +37,6 @@ void	read_input(char	*input)
 			clean_mess(linkedlist);
 			continue ;
 		}
-		delete_heredocs_files();
 		free_input(linkedlist);
 	}
 }
