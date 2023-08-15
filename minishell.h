@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 00:17:32 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 18:53:39 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:31:28 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ typedef struct s_heredoc_state
 {
 	int		stdin_clone;
 	bool	fd_broken;
-	bool	cancel;
+	bool	c;
+	bool	r;
 }	t_hd_state;
 
 typedef struct s_fd_chain {
@@ -90,7 +91,7 @@ void		compute_node(char *command, t_input *node, int *index);
 
 // Heredoc
 void		restoreline(void);
-t_hd_state	*heredoc_state(void);
+t_hd_state	*hstate(void);
 char		*get_uniquefilename(void);
 void		delete_heredocs_files(void);
 int			*get_heredoc_filecount(void);
@@ -169,7 +170,6 @@ void		sigint_running_shell(int sig);
 void		sigint_running_heredoc(int sig);
 void		heredoc_child_sighandler(int sig);
 void		interactive_sighandlers(void);
-
 
 // execution
 void		ms_export(char **args);

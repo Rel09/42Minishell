@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 00:55:06 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 19:19:12 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:27:24 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 // Hold the Heredoc State
-t_hd_state	*heredoc_state(void)
+t_hd_state	*hstate(void)
 {
 	static t_hd_state	t;
 	static bool			init;
@@ -31,7 +31,8 @@ void	signal_heredok(int sig)
 	(void)sig;
 	g_last_result = EXIT_FAILURE;
 	close(STDIN_FILENO);
-	heredoc_state()->cancel = true;
+	hstate()->c = true;
+	hstate()->r = true;
 }
 
 static void	heredoc2(char **input, char *keyword, int fd)
@@ -41,25 +42,25 @@ static void	heredoc2(char **input, char *keyword, int fd)
 	i = 0;
 	signal(SIGINT, signal_heredok);
 	signal(SIGQUIT, SIG_IGN);
-	heredoc_state()->stdin_clone = dup(STDIN_FILENO);
-	while (!heredoc_state()->cancel && ft_strcmp(*input, keyword))
+	hstate()->stdin_clone = dup(STDIN_FILENO);
+	while (!hstate()->c && !hstate()->r && ft_strcmp(*input, keyword))
 	{
 		free(*input);
 		*input = readline("> ");
-		if (!*input)
-			heredoc_state()->cancel = true;
-		else if (!heredoc_state()->cancel && ft_strcmp(*input, keyword))
+		if (!*input) 
+			hstate()->r = true;
+		else if (!hstate()->c && ft_strcmp(*input, keyword))
 		{
 			ft_putstr_fd(convert_all_args_hd(*input), fd);
 			ft_putstr_fd("\n", fd);
 		}
 	}
-	if (heredoc_state()->cancel)
+	if (hstate()->c)
 		restoreline();
 	else
 	{
-		close(heredoc_state()->stdin_clone);
-		heredoc_state()->stdin_clone = -1;
+		close(hstate()->stdin_clone);
+		hstate()->stdin_clone = -1;
 	}
 }
 
@@ -70,7 +71,7 @@ void	heredoc(char *keyword, t_input *node)
 	char	*filename;
 	int		fd;
 
-	if (heredoc_state()->fd_broken)
+	if (hstate()->fd_broken)
 		return ;
 	input = malloc(1);
 	*input = 0;
@@ -82,5 +83,5 @@ void	heredoc(char *keyword, t_input *node)
 	free(input);
 	change_input(filename, node);
 	if (node->_stdin == -1)
-		heredoc_state()->fd_broken = true;
+		hstate()->fd_broken = true;
 }

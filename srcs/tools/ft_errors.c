@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 03:07:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/14 21:32:59 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/15 18:27:24 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ bool	check_input(char *input)
 void	clean_mess(t_input *LL)
 {
 	free_input(LL);
-	heredoc_state()->cancel = false;
+	hstate()->c = false;
 }
 
 void	restoreline(void)
 {
-	dup2(heredoc_state()->stdin_clone, STDIN_FILENO);
-	close(heredoc_state()->stdin_clone);
+	dup2(hstate()->stdin_clone, STDIN_FILENO);
+	close(hstate()->stdin_clone);
 	rl_on_new_line();
 	rl_redisplay();
 	ft_putstr_fd("  \n", 1);

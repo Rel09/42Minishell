@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 19:17:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/14 21:29:20 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/15 18:27:47 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,20 @@ void	sigint_running_shell(int sig)
 void	sigint_interactive(int sig)
 {
 	(void) sig;
-	rl_on_new_line();
-	rl_redisplay();
-	ft_putstr_fd("  \n", 1);
-	rl_replace_line("", 0);
-	printf("Minishell > ");
+	if (hstate()->r)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	else
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		ft_putstr_fd("  \n", 1);
+		rl_replace_line("", 0);
+		printf("Minishell > ");
+	}
 }
 
 int	intercept_signals(void)

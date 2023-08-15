@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   compute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
+/*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 20:47:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/09 13:26:35 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/15 18:27:24 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	do_redirect(char *type, char *file, t_input *node)
 	}
 	if (ft_isredir(type) && ft_isredir_or_pipe(file))
 	{
-		heredoc_state()->cancel = true;
+		hstate()->c = true;
 		ft_putstr_fd("Minishell: syntax error near unexpected token '",
 			STDERR_FILENO);
 		ft_putstr_fd(file, STDERR_FILENO);
