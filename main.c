@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 03:54:02 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/14 21:32:31 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/14 21:34:12 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ void	read_input(char	*input)
 			continue ;
 		interactive_sighandlers();
 		if (!heredoc_state()->cancel || !argschecker(linkedlist))
-		{
 			command_handler(linkedlist);
-		
-		}
 		else
 		{
 			clean_mess(linkedlist);
