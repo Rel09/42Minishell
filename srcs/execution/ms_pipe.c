@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 19:35:43 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/09 18:54:06 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/20 17:45:45 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static void	last_command(t_input *input, t_fd_chain *fd_chain)
 		dup_last_fd(fd_chain);
 		save_std(CLOSE_IN | CLOSE_OUT);
 		single_command_handler(input);
-		pipeline_error_cleaning(head, NULL, NULL, true);
+		pipeline_error_cleaning(head, fd_chain, NULL, true);
 	}
 	close_fd_chain(fd_chain);
 	wait_for_my_child(fd_chain);

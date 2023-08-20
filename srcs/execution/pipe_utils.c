@@ -6,7 +6,7 @@
 /*   By: pbergero <pascaloubergeron@hotmail.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 17:30:28 by pbergero          #+#    #+#             */
-/*   Updated: 2023/08/06 19:34:57 by pbergero         ###   ########.fr       */
+/*   Updated: 2023/08/20 17:45:57 by pbergero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	pipeline_error_cleaning(t_input *input, t_fd_chain *fd_chain,
 		close_fd_chain(fd_chain);
 		free_fd_chain(fd_chain);
 	}
-	save_std(CLOSE_IN | CLOSE_OUT | RESTORE_IN | RESTORE_OUT);
+	clean_static_memory();
 	if (exiting_process)
 		exit (g_last_result);
 }
