@@ -6,7 +6,7 @@
 /*   By: dpotvin <dpotvin@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 03:07:26 by dpotvin           #+#    #+#             */
-/*   Updated: 2023/08/15 18:27:24 by dpotvin          ###   ########.fr       */
+/*   Updated: 2023/08/20 20:19:50 by dpotvin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,17 @@ bool	check_input(char *input)
 	i = 0;
 	while (ft_isspace(input[i]))
 		i++;
+	if (input[i] == '|')
+	{
+		ft_putstr_fd("Minishell: syntax error near unexpected token '|'\n",
+			STDERR_FILENO);
+		g_last_result = UNEXPECTED_TOKEN_ERROR;
+		free(input);
+		return (false);
+	}
+	i = ft_strlen(input) - 1;
+	while (ft_isspace(input[i]))
+		i--;
 	if (input[i] == '|')
 	{
 		ft_putstr_fd("Minishell: syntax error near unexpected token '|'\n",
